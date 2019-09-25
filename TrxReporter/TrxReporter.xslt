@@ -472,22 +472,21 @@
         </xsl:if>
       </xsl:if>
 
-      <xsl:value-of select="t:StdErr" />
       <xsl:variable name="StdErr" select="t:StdErr"/>
       <xsl:if test="$StdErr">
         [StdErr: <xsl:value-of select="$StdErr"/> ]
         <br/>
       </xsl:if>
 
-      <xsl:variable name="MessageErrorInfo" select="t:ErrorInfo/t:Message"/>
-      <xsl:if test="$MessageErrorInfo">
+      <xsl:variable name="errorInfoMsg" select="t:ErrorInfo/t:Message"/>
+      <xsl:if test="$errorInfoMsg">
         <div class="exMessage">
-          <xsl:value-of select="$MessageErrorInfo"/>
+          <xsl:value-of select="$errorInfoMsg"/>
         </div>
         <br/>
       </xsl:if>
 
-      <xsl:if test="$StdErr or $MessageErrorInfo">
+      <xsl:if test="$StdErr or $errorInfoMsg">
         <xsl:variable name="trace" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output/t:ErrorInfo/t:StackTrace" />
         <div class="stacktrace visibleRow" id="{generate-id($testId)}Stacktrace">
           <div id="exceptionArrow">&#8627;</div>
