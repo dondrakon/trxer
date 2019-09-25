@@ -181,7 +181,7 @@
                     <tr class="summaryLayout">
                       <td colspan="2" class="summaryLayout" style="vertical-align:top">
                         <div class="storage">
-                          <xsl:value-of select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
+                          <xsl:value-of select="$storage" />
                         </div>
                       </td>
                     </tr>
@@ -228,7 +228,7 @@
                 </tr>
                 <tr id="{generate-id(@className)}TestsContainer">
                   <td colspan="2">
-                    <div id="exceptionArrow">↳</div>
+                    <div id="exceptionArrow">&#8627;</div>
                     <table>
                       <thead>
                         <tr class="odd">
@@ -289,7 +289,7 @@
                     <xsl:call-template name="BuildStatusColumn">
                       <xsl:with-param name="outcome" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/@outcome" />
                     </xsl:call-template>
-                    
+
                     <td class="Function slowest">
                       <xsl:value-of select="pens:RemoveAssemblyName(/t:TestRun/t:TestDefinitions/t:UnitTest[@id=$testId]/t:TestMethod/@className)"/>
                       .<xsl:value-of select="@testName"/>
@@ -490,21 +490,13 @@
       <xsl:if test="$StdErr or $MessageErrorInfo">
         <xsl:variable name="trace" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output/t:ErrorInfo/t:StackTrace" />
         <div class="stacktrace visibleRow" id="{generate-id($testId)}Stacktrace">
-          <div id="exceptionArrow">↳</div>
-          <table>
-            <tbody>
-              <tr class="visibleRow">
-                <td class="ex">
-                  <div class="exScroller">
-                    <pre class="exMessage">
-                      <!-- trim off the first space char -->
-                      <xsl:value-of select="substring($trace,2)" />
-                    </pre>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="exceptionArrow">&#8627;</div>
+          <div class="exScroller">
+            <pre class="exMessage">
+              <!-- trim off the first space char -->
+              <xsl:value-of select="substring($trace,2)" />
+            </pre>
+          </div>
         </div>
       </xsl:if>
 
