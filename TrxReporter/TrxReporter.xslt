@@ -207,7 +207,12 @@
             <thead>
               <tr>
                 <th class="features" scope="col" abbr="Status">Status</th>
-                <th class="featuresLeft" scope="col" abbr="Feature">Feature</th>
+                <th class="featuresLeft" scope="col" abbr="Feature">
+                  <div style="float:left">Feature</div>
+                  <div class="scenariosButton" onclick="ToggleAll('TestsContainer','scenariosButtonText','Expand','Collapse');">
+                    <div class="scenariosButtonText" id="scenariosButtonText">Collapse</div>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -226,7 +231,7 @@
                     <xsl:value-of select="pens:RemoveAssemblyName(@className)" />
                   </td>
                 </tr>
-                <tr id="{generate-id(@className)}TestsContainer">
+                <tr id="{generate-id(@className)}TestsContainer" class="visibleRow">
                   <td colspan="2">
                     <div id="exceptionArrow">&#8627;</div>
                     <table>
@@ -386,7 +391,7 @@
           <xsl:value-of select="pens:ToExactTimeDefinition(@duration)" />
         </td>
         <td>
-          <div class="OpenMoreButton" onclick="ShowHide('{$scenarioId}Details','{$scenarioId}DetailsButton','Show Gherkin','Hide Gherkin');">
+          <div class="OpenMoreButton" onclick="ToggleOne('{$scenarioId}Details','{$scenarioId}DetailsButton','Show Gherkin','Hide Gherkin');">
             <div class="MoreButtonText" id="{$scenarioId}DetailsButton">Show Gherkin</div>
           </div>
         </td>
@@ -463,7 +468,7 @@
           <div class="OpenMoreButton">
             <div class="MoreButtonText" id="Button">
               <a class="Message" id="{generate-id($testId)}StacktraceToggle"
-                  href="javascript:ShowHide('{generate-id($testId)}Stacktrace','{generate-id($testId)}StacktraceToggle','Show Stacktrace','Hide Stacktrace');">Show Stacktrace</a>
+                  href="javascript:ToggleOne('{generate-id($testId)}Stacktrace','{generate-id($testId)}StacktraceToggle','Show Stacktrace','Hide Stacktrace');">Show Stacktrace</a>
             </div>
           </div>
         </xsl:if-->

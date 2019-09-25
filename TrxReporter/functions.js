@@ -2,27 +2,30 @@
 var myColor = ["#c0eec0", "#fed9d9", "#FBE87E"];//green,red,yellow
 var myStrokeColor = ["#7CCD7C", "#d42945", "#ffcc00"];
 
-function ShowHide(id1, id2, textOnHide, textOnShow) {
-    var row = document.getElementById(id1);
-    if (row.classList.contains('visibleRow'))
+function ToggleAll(key, buttonId, textOnHide, textOnShow) {
+    var button = document.getElementById(buttonId);
+    var rows = document.querySelectorAll("tr[id$='" + key + "']");
+    for (var r = 0; r < rows.length; r++)
     {
-        document.getElementById(id2).innerHTML = textOnHide;
-        row.classList.remove('visibleRow');
-        row.classList.add('hiddenRow');
-    }
-    else
-    {
-        document.getElementById(id2).innerHTML = textOnShow;
-        row.classList.remove('hiddenRow');
-        row.classList.add('visibleRow');
+        Toggle(rows[r], button, textOnHide, textOnShow);
     }
 }
 
-function AddEventListener() {
-    var button = document.getElementById('btn-download');
-    button.addEventListener('click', function () {
-        button.href = canvas.toDataURL('image/png');
-    });
+function ToggleOne(id, buttonId, textOnHide, textOnShow) {
+    Toggle(document.getElementById(id), document.getElementById(buttonId), textOnHide, textOnShow);
+}
+
+function Toggle(row, button, textOnHide, textOnShow) {
+    if (row.classList.contains('visibleRow')) {
+        button.innerHTML = textOnHide;
+        row.classList.remove('visibleRow');
+        row.classList.add('hiddenRow');
+    }
+    else {
+        button.innerHTML = textOnShow;
+        row.classList.remove('hiddenRow');
+        row.classList.add('visibleRow');
+    }
 }
 
 function show(id) {
@@ -52,13 +55,11 @@ function GetTotal() {
 
 
 function CreatePie() {
-    var canvas;
-    var ctx;
     var lastend = 0;
     var myTotal = GetTotal();
 
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     CreateText();
@@ -152,6 +153,14 @@ function CalculateTotalPrecents() {
     CreatePie();
     AddEventListener();
 }
+
+function AddEventListener() {
+    var button = document.getElementById('btn-download');
+    button.addEventListener('click', function () {
+        button.href = canvas.toDataURL('image/png');
+    });
+}
+
 
 function CalculateTestsStatuses(testContaineId, canvasId) {
     var totalPassed = 0;
