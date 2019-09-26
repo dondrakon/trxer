@@ -26,7 +26,7 @@
         <div id="wrapper" class="wrapper">
 
           <!-- Title - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
+          
           <xsl:call-template name="BuildTitleBar">
             <xsl:with-param name="title" select="$reportTitle"/>
             <xsl:with-param name="countersExecuted" select="/t:TestRun/t:ResultSummary/t:Counters/@executed"/>
@@ -34,174 +34,150 @@
             <xsl:with-param name="countersFailed" select="/t:TestRun/t:ResultSummary/t:Counters/@failed"/>
           </xsl:call-template>
 
-          <div class="SummaryDiv">
-            <table class="summaryLayout">
-              <tr class="summaryLayout">
-                <td class="summaryLayout">
-                  <table id="TotalTestsTable">
-                    <caption>Results Summary</caption>
-                    <thead>
-                      <tr class="odd">
-                        <th scope="col" abbr="Status">
-                          Pie View
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div id="dataViewer"></div>
-                        </td>
-                      </tr>
-                      <tr id="DownloadSection">
-                        <td>
-                          <a href="#" class="button" id="btn-download" download="{/t:TestRun/@name}StatusesPie.png">Save graph</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-                <td class="summaryLayout">
-                  <table class="DetailsTable StatusesTable">
-                    <caption>Statuses</caption>
-                    <tbody>
-                      <tr class="odd">
-                        <th class="column1 statusCount">Total</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@total" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Executed</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@executed" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Passed</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@passed" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Failed</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@failed" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Inconclusive</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@inconclusive" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Error</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@error" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Warning</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@warning" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="column1 statusCount">Timeout</th>
-                        <td class="statusCount">
-                          <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@timeout" />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-                <td class="summaryLayout">
-                  <table class="summaryLayout">
+          <div class="summaryWrapper">
+            <div>
+              <table class="info">
+                <caption>Summary</caption>
+                <thead>
+                  <tr>
+                    <th>Pie View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div id="dataViewer"></div>
+                    </td>
+                  </tr>
+                  <tr id="DownloadSection">
+                    <td class="centered">
+                      <a href="#" class="button" id="btn-download" download="{/t:TestRun/@name}StatusesPie.png">Save graph</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table class="info">
+                <caption>Statuses</caption>
+                <tbody>
+                  <tr>
+                    <th>Total</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@total" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Executed</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@executed" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Passed</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@passed" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Failed</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@failed" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Inconclusive</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@inconclusive" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Error</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@error" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Warning</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@warning" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Timeout</th>
+                    <td class="centered">
+                      <xsl:value-of select="/t:TestRun/t:ResultSummary/t:Counters/@timeout" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table class="info">
+                <caption>Runtime/Context</caption>
+                <tbody>
+                  <xsl:for-each select="/t:TestRun/t:Times">
                     <tr>
-                      <td class="summaryLayout">
-                        <table class="SummaryTable">
-                          <caption>Run Time Summary</caption>
-                          <tbody>
-                            <xsl:for-each select="/t:TestRun/t:Times">
-                              <tr class="odd">
-                                <th class="column1">Start Time</th>
-                                <td>
-                                  <xsl:value-of select="pens:GetShortDateTime(@start)" />
-                                </td>
-                              </tr>
-                              <tr>
-                                <th class="column1">End Time</th>
-                                <td>
-                                  <xsl:value-of select="pens:GetShortDateTime(@finish)" />
-                                </td>
-                              </tr>
-                              <tr>
-                                <th class="column1">Duration</th>
-                                <td>
-                                  <xsl:value-of select="pens:ToExactTimeDefinition(@start,@finish)"/>
-                                </td>
-                              </tr>
-                            </xsl:for-each>
-                          </tbody>
-                        </table>
-                      </td>
-                      <td class="summaryLayout">
-                        <table class="DetailsTable">
-                          <caption>Context</caption>
-                          <tbody>
-                            <tr class="odd">
-                              <th class="column1">User</th>
-                              <td>
-                                <xsl:value-of select="/t:TestRun/@runUser" />
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row" class="column1">Machine</th>
-                              <td>
-                                <xsl:value-of select="//t:UnitTestResult/@computerName" />
-                              </td>
-                            </tr>
-                            <tr>
-                              <th scope="row" class="column1">Description</th>
-                              <td>
-                                <xsl:value-of select="/t:TestRun/t:TestRunConfiguration/t:Description"/>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <th>Start Time</th>
+                      <td class="nowrap">
+                        <xsl:value-of select="pens:GetShortDateTime(@start)" />
                       </td>
                     </tr>
-                    <tr class="summaryLayout">
-                      <td colspan="2" class="summaryLayout" style="vertical-align:top">
-                        <div class="storage">
-                          <xsl:value-of select="$storage" />
-                        </div>
+                    <tr>
+                      <th>End Time</th>
+                      <td class="nowrap">
+                        <xsl:value-of select="pens:GetShortDateTime(@finish)" />
                       </td>
                     </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
+                    <tr>
+                      <th>Duration</th>
+                      <td class="nowrap">
+                        <xsl:value-of select="pens:ToExactTimeDefinition(@start,@finish)"/>
+                      </td>
+                    </tr>
+                  </xsl:for-each>
+                  <tr>
+                    <th>User</th>
+                    <td class="nowrap">
+                      <xsl:value-of select="/t:TestRun/@runUser" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Machine</th>
+                    <td class="nowrap">
+                      <xsl:value-of select="//t:UnitTestResult/@computerName" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Build</th>
+                    <td class="nowrap">
+                      <xsl:value-of select="pens:GetBuildName($storage)" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Description</th>
+                    <td class="nowrap">
+                      <xsl:value-of select="/t:TestRun/t:TestRunConfiguration/t:Description"/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <!-- Details - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-          <!--
-          <xsl:variable name="testsFailedSet" select="//t:TestRun/t:Results/t:UnitTestResult[@outcome='Failed']" />
-          <xsl:variable name="testsFailedCount" select="count(testsFailedSet)" />
-          -->
-
           <xsl:variable name="features" select="//t:TestMethod[generate-id(.)=generate-id(key('TestMethods', @className))]" />
           <xsl:variable name="featureCount" select="count($features)" />
-          <table id="ReportsTable">
+
+          <table id="ReportsTable" class="info section">
             <caption>
               All Scenarios By Feature (<xsl:value-of select="$featureCount" />)
             </caption>
             <thead>
               <tr>
-                <th class="features" scope="col" abbr="Status">Status</th>
-                <th class="featuresLeft" scope="col" abbr="Feature">
+                <th class="section">Status</th>
+                <th class="section left">
                   <div style="float:left">Feature</div>
                   <div class="scenariosButton" onclick="ToggleAll('TestsContainer','scenariosButtonText','Expand','Collapse');">
                     <div class="scenariosButtonText" id="scenariosButtonText">Collapse</div>
@@ -270,13 +246,13 @@
 
           <!-- Five Slowest - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-          <Table>
+          <table class="info section">
             <caption>Five slowest features</caption>
             <thead>
-              <tr class="odd">
-                <th class="features" scope="col">Status</th>
-                <th class="featuresLeft" scope="col" abbr="Feature">Feature</th>
-                <th class="features" scope="col" abbr="Duration">Duration</th>
+              <tr>
+                <th class="section">Status</th>
+                <th class="section left">Feature</th>
+                <th class="section">Duration</th>
               </tr>
             </thead>
             <tbody>
@@ -302,11 +278,11 @@
                 </xsl:if>
               </xsl:for-each>
             </tbody>
-          </Table>
+          </table>
+
           <h6 style="text-align:center">
             &#169; <xsl:value-of select="pens:GetYear()"/>, Internal Use Only
           </h6>
-
         </div>
 
         <div id="pictureBox" class="pictureBox" onclick="ClosePictureBox()">
@@ -381,33 +357,33 @@
     <xsl:param name="outcome" />
     <xsl:choose>
       <xsl:when test="$outcome='Passed'">
-        <td class="passed top">
+        <td class="passed top centered">
           PASSED
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Failed'">
-        <td class="failed top">
+        <td class="failed top centered">
           FAILED
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Inconclusive'">
-        <td class="warn top">
-          Inconclusive
+        <td class="warn top centered">
+          INCONCLUSIVE
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Timeout'">
-        <td class="failed top">
-          Timeout
+        <td class="failed top centered">
+          TIMEOUT
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Error'">
-        <td class="failed top">
-          Error
+        <td class="failed top centered">
+          ERROR
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Warn'">
-        <td class="warn top">
-          Warn
+        <td class="warn top centered">
+          WARN
         </td>
       </xsl:when>
       <xsl:otherwise>
@@ -425,39 +401,27 @@
     <xsl:param name="testId" />
 
     <xsl:for-each select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output">
-      <xsl:variable name="MessageErrorStacktrace" select="t:ErrorInfo/t:StackTrace"/>
       <xsl:variable name="StdOut" select="t:StdOut"/>
-
-      <xsl:if test="$StdOut or $MessageErrorStacktrace">
+      <xsl:if test="$StdOut">
         <xsl:value-of select="pens:FormatOutput($StdOut)" disable-output-escaping="yes" />
-        <!--xsl:if test="$MessageErrorStacktrace">
-          <div class="OpenMoreButton">
-            <div class="MoreButtonText" id="Button">
-              <a class="Message" id="{generate-id($testId)}StacktraceToggle"
-                  href="javascript:ToggleOne('{generate-id($testId)}Stacktrace','{generate-id($testId)}StacktraceToggle','Show Stacktrace','Hide Stacktrace');">Show Stacktrace</a>
-            </div>
-          </div>
-        </xsl:if-->
-        <xsl:if test="$StdOut">
-          <br/>
-        </xsl:if>
-      </xsl:if>
-
-      <xsl:variable name="StdErr" select="t:StdErr"/>
-      <xsl:if test="$StdErr">
-        [StdErr: <xsl:value-of select="$StdErr"/> ]
         <br/>
       </xsl:if>
 
-      <xsl:variable name="errorInfoMsg" select="t:ErrorInfo/t:Message"/>
-      <xsl:if test="$errorInfoMsg">
+      <xsl:variable name="stdErr" select="t:StdErr"/>
+      <xsl:if test="$stdErr">
+        <xsl:value-of select="$stdErr"/>
+        <br/>
+      </xsl:if>
+
+      <xsl:variable name="error" select="t:ErrorInfo/t:Message"/>
+      <xsl:if test="error">
         <div class="exMessage">
-          <xsl:value-of select="$errorInfoMsg"/>
+          <xsl:value-of select="$error"/>
+          <br/>
         </div>
-        <br/>
       </xsl:if>
 
-      <xsl:if test="$StdErr or $errorInfoMsg">
+      <xsl:if test="$stdErr or $error">
         <xsl:variable name="trace" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output/t:ErrorInfo/t:StackTrace" />
         <div class="stacktrace visibleRow" id="{generate-id($testId)}Stacktrace">
           <div id="exceptionArrow">&#8627;</div>

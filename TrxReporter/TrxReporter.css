@@ -1,6 +1,6 @@
 
-html, body, form, fieldset,
-h2, h3, h4, h5, h6,
+html, form, fieldset,
+h1, h2, h3, h4, h5, h6,
 p, pre, blockquote,
 ul, ol, dl,
 address {
@@ -8,24 +8,25 @@ address {
     padding: 0;
 }
 
+body {
+    font: 14px/18px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    min-width: 890px;
+}
+
 .wrapper {
     width: auto;
-    margin: -8px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
 }
 
-.titleCenterd {
-    position: relative;
-    top: 12px;
-    text-shadow: 1px 1px 1px #194c19;
-}
-
 /* TitleBar  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 .titleBar {
-    margin-top: 40px;
+    margin-top: 30px;
     width: 100%;
     height: 60px;
 }
@@ -69,6 +70,85 @@ address {
         text-shadow: 1px 1px 1px #194c19;
     }
 
+/* Summary - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.summaryWrapper {
+    width: 90%;
+    margin: 1em auto;
+}
+
+    .summaryWrapper > div {
+        float: left;
+        margin-right: 40px;
+        vertical-align: top;
+    }
+
+
+/* Informational Table - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+table.info {
+    margin: 1em auto;
+    border-collapse: collapse;
+    border: 1px solid #a2caf2;
+}
+
+    table.info > caption {
+        caption-side: top;
+        color: #9ba9b4;
+        font-size: 16px;
+        letter-spacing: .2em;
+        margin: 1em 0 0 0;
+        padding: 0;
+        text-align: center;
+        font-weight: normal;
+        border-top: 1px solid #a2caf2;
+        border-left: 1px solid #a2caf2;
+        border-right: 1px solid #a2caf2;
+    }
+
+    table.info > thead > tr > th {
+        background: #dbedff;
+        text-align: center;
+        color: #66a3d3;
+        font: 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+        font-weight: normal !important;
+        padding: .2em 1em !important;
+    }
+
+    table.info > tbody > tr > th {
+        background: #dbedff;
+        color: #678197;
+        white-space: nowrap;
+    }
+
+    table.info > tbody > tr > td {
+        text-align: left;
+    }
+
+table.section {
+    margin-top: 40px !important;
+}
+
+th.section {
+    background-color: #fffadd !important;
+    font-weight: bold !important;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.centered {
+    text-align: center !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -85,16 +165,6 @@ address {
     font-size: 20px;
 }
 
-
-body {
-    font: 14px/18px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
-    margin-top: -10px;
-    min-width: 890px;
-}
-
-p {
-    text-align: center;
-}
 
 a:link {
     color: #d42945;
@@ -127,60 +197,9 @@ a:focus {
     width: 100px;
 }
 
-.SummaryTable {
-    width: auto;
-    max-width: 407px;
-    float: left;
-    margin-right: 0px;
-}
-
-#wrapper > div > table.SummaryTable > tbody > tr > th {
-    width: auto;
-}
-
-.DetailsTable {
-    width: auto;
-    max-width: 407px;
-    float: left;
-    margin-right: 0px;
-    text-align: left;
-    word-wrap: break-word;
-}
-
-.StatusesTable {
-    width: auto;
-}
-
-#wrapper > div.SummaryDiv > table.DetailsTable > tbody > tr > td {
-    text-align: left;
-    word-wrap: break-word;
-}
-
-#wrapper > div.SummaryDiv > table.DetailsTable > tbody > tr > th {
-    width: 30px;
-    /*background-color: #FFFFFF;*/
-}
 
 td.slowest {
     width: auto;
-}
-
-#TotalTestsTable {
-    min-width: 250px;
-    width: auto;
-    float: left;
-    margin-right: 0px;
-}
-
-.SummaryDiv {
-    width: 90%;
-    margin: 1em auto;
-    border-collapse: collapse;
-}
-
-.Summary {
-    float: left;
-    border-collapse: collapse;
 }
 
 #btn-download {
@@ -206,44 +225,6 @@ td.slowest {
 #ReportsTable th {
 }
 
-#TotalPassed {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #7CCD7C;
-    background: #c0eec0;
-    border: 1px solid #7CCD7C;
-    margin-bottom: 5px;
-}
-
-#TotalWarn {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #E4C100;
-    background: #FBE87E;
-    border: 1px solid #E4C100;
-    margin-bottom: 5px;
-}
-
-#TotalFailed {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #d42945;
-    background: #fed9d9;
-    border: 1px solid #d42945;
-    margin-bottom: 5px;
-}
-
-#TotalInfo {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    border: 1px solid #c7c7c7;
-    color: #c7c7c7;
-    background: #e0e0e0;
-}
 
 #dataViewer {
     width: 240px;
