@@ -165,13 +165,13 @@ function CalculateTotalPrecents() {
     myParsedData.push(allFailed + " (" + Math.round(failedPct).toFixed(2) + "%)");
     myParsedData.push(allWarns + " (" + Math.round(warnPct).toFixed(2) + "%)");
 
-    document.getElementById('dataViewer').innerHTML = "<tr class='odd'><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
+    document.getElementById('summaryGraph').innerHTML = "<tr class='odd'><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
     CreatePie();
     AddEventListener();
 }
 
 function AddEventListener() {
-    var button = document.getElementById('btn-download');
+    var button = document.getElementById('downloadButton');
     button.addEventListener('click', function () {
         button.href = canvas.toDataURL('image/png');
     });

@@ -16,7 +16,6 @@
       <head>
         <meta charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="TrxReporter.css"/>
-        <link rel="stylesheet" type="text/css" href="TrxReporterTable.css"/>
         <script language="javascript" type="text/javascript" src="functions.js"></script>
         <title>
           <xsl:value-of select="$reportTitle"/>
@@ -46,12 +45,12 @@
                 <tbody>
                   <tr>
                     <td>
-                      <div id="dataViewer"></div>
+                      <div id="summaryGraph"></div>
                     </td>
                   </tr>
                   <tr id="DownloadSection">
                     <td class="centered">
-                      <a href="#" class="button" id="btn-download" download="{/t:TestRun/@name}StatusesPie.png">Save graph</a>
+                      <a href="#" id="downloadButton" download="{/t:TestRun/@name}StatusesPie.png">Save graph</a>
                     </td>
                   </tr>
                 </tbody>
@@ -192,28 +191,28 @@
 
                 <!-- Scenario header -->
 
-                <tr class="Scenario">
+                <tr>
                   <td class="PackageStatus">
                     <canvas id="{generate-id(@className)}canvas" width="100" height="25">
                     </canvas>
                   </td>
                   <td class="scenario" style="text-align:left">
-                    <xsl:value-of select="pens:RemoveAssemblyName(@className)" />
+                    <xsl:value-of select="pens:GetFeatureName(@className)" />
                   </td>
                 </tr>
                 <tr id="{generate-id(@className)}TestsContainer" class="visibleRow">
                   <td colspan="2">
-                    <div id="exceptionArrow">&#8627;</div>
-                    <table>
+                    <div class="dropArrow">&#8627;</div>
+                    <table class="info">
                       <thead>
-                        <tr class="odd">
-                          <th scope="col" class="TestsTable" style="width:80px;">
+                        <tr>
+                          <th class="TestsTable" style="width:80px;">
                             <div style="width:80px;min-width:80px;display:block;">Status</div>
                           </th>
-                          <th scope="col" class="TestsTable" style="text-align:left">
+                          <th class="TestsTable" style="text-align:left">
                             Scenario (<xsl:value-of select="$scenarioCount" />)
                           </th>
-                          <th scope="col" class="TestsTable" style="width:100px;">
+                          <th class="TestsTable" style="width:100px;">
                             <div style="width:100px;min-width:100px;">Duration</div>
                           </th>
                           <th style="width:80px">
@@ -247,11 +246,11 @@
           <!-- Five Slowest - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <table class="info section">
-            <caption>Five slowest features</caption>
+            <caption>Five slowest scenarios</caption>
             <thead>
               <tr>
                 <th class="section">Status</th>
-                <th class="section left">Feature</th>
+                <th class="section left">Scenario</th>
                 <th class="section">Duration</th>
               </tr>
             </thead>
@@ -264,15 +263,11 @@
                     <xsl:call-template name="BuildStatusColumn">
                       <xsl:with-param name="outcome" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/@outcome" />
                     </xsl:call-template>
-
-                    <td class="Function slowest">
-                      <xsl:value-of select="pens:RemoveAssemblyName(/t:TestRun/t:TestDefinitions/t:UnitTest[@id=$testId]/t:TestMethod/@className)"/>
-                      .<xsl:value-of select="@testName"/>
+                    <td>
+                      <xsl:value-of select="pens:GetFeatureName(/t:TestRun/t:TestDefinitions/t:UnitTest[@id=$testId]/t:TestMethod/@className)"/>.<xsl:value-of select="@testName"/>
                     </td>
-                    <td class="Message slowest">
-                      <div style="white-space: nowrap">
-                        <xsl:value-of select="pens:ToExactTimeDefinition(@duration)"/>
-                      </div>
+                    <td class="nowrap">
+                      <xsl:value-of select="pens:ToExactTimeDefinition(@duration)"/>
                     </td>
                   </tr>
                 </xsl:if>
@@ -280,13 +275,13 @@
             </tbody>
           </table>
 
-          <h6 style="text-align:center">
+          <footer>
             &#169; <xsl:value-of select="pens:GetYear()"/>, Internal Use Only
-          </h6>
+          </footer>
         </div>
 
         <div id="pictureBox" class="pictureBox" onclick="ClosePictureBox()">
-          <img class="pictureBoxImg" id="pictureBoxImg" />
+          <img id="pictureBoxImg" />
         </div>
 
       </body>
@@ -326,10 +321,10 @@
         <xsl:call-template name="BuildStatusColumn">
           <xsl:with-param name="outcome" select="@outcome" />
         </xsl:call-template>
-        <td class="Function">
+        <td class="left">
           <xsl:value-of select="@testName" />
         </td>
-        <td>
+        <td class="nowrap">
           <xsl:value-of select="pens:ToExactTimeDefinition(@duration)" />
         </td>
         <td>
@@ -343,7 +338,7 @@
           <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
         </td>
         <td class="Test Messages" colspan="3">
-          <xsl:call-template name="BuildDetailInfo">
+          <xsl:call-template name="BuildOutput">
             <xsl:with-param name="testId" select="$scenarioId" />
           </xsl:call-template>
         </td>
@@ -357,37 +352,37 @@
     <xsl:param name="outcome" />
     <xsl:choose>
       <xsl:when test="$outcome='Passed'">
-        <td class="passed top centered">
+        <td class="passed centered">
           PASSED
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Failed'">
-        <td class="failed top centered">
+        <td class="failed centered">
           FAILED
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Inconclusive'">
-        <td class="warn top centered">
+        <td class="warn centered">
           INCONCLUSIVE
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Timeout'">
-        <td class="failed top centered">
+        <td class="failed centered">
           TIMEOUT
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Error'">
-        <td class="failed top centered">
+        <td class="failed centered">
           ERROR
         </td>
       </xsl:when>
       <xsl:when test="$outcome='Warn'">
-        <td class="warn top centered">
+        <td class="warn centered">
           WARN
         </td>
       </xsl:when>
       <xsl:otherwise>
-        <td class="info top">
+        <td class="info">
           OTHER
         </td>
       </xsl:otherwise>
@@ -395,9 +390,9 @@
 
   </xsl:template>
 
-  <!-- BuildDetailInfo ======================================================================== -->
+  <!-- BuildOutput ============================================================================ -->
 
-  <xsl:template name="BuildDetailInfo">
+  <xsl:template name="BuildOutput">
     <xsl:param name="testId" />
 
     <xsl:for-each select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output">
@@ -424,7 +419,7 @@
       <xsl:if test="$stdErr or $error">
         <xsl:variable name="trace" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output/t:ErrorInfo/t:StackTrace" />
         <div class="stacktrace visibleRow" id="{generate-id($testId)}Stacktrace">
-          <div id="exceptionArrow">&#8627;</div>
+          <div class="dropArrow">&#8627;</div>
           <div class="exScroller">
             <pre class="exMessage">
               <!-- trim off the first space char -->

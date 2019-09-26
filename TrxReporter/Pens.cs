@@ -12,22 +12,6 @@ namespace TrxReporter
 	public class Pens
 	{
 
-		public string ExtractImageUrl(string text)
-		{
-			var match = Regex.Match(
-				text,
-				"('|\")([^\\s]+(\\.(?i)(jpg|png|gif|bmp)))('|\")",
-				RegexOptions.IgnoreCase);
-
-			if (match.Success)
-			{
-				return match.Value.Replace("\'", string.Empty).Replace("\"", string.Empty).Replace("\\", "\\\\");
-			}
-
-			return string.Empty;
-		}
-
-
 		/// <summary>
 		/// Format output written by SpedFlow/Gherkin including images
 		/// </summary>
@@ -61,17 +45,56 @@ namespace TrxReporter
 
 		}
 
+
+		/// <summary>
+		/// Extract the build folder name from the storage location. This is a custom
+		/// implementation for Bamboo build paths of the form C:\builds\build-name\....
+		/// </summary>
+		/// <param name="storage">
+		/// A path of the form C:\builds\build-name\...
+		/// </param>
+		/// <returns>
+		/// Just the "build-name" part of the path
+		/// </returns>
 		public string GetBuildName(string storage)
 		{
 			var parts = storage.Split(System.IO.Path.DirectorySeparatorChar);
 			if (parts.Length > 1)
 			{
-				return parts[2];
+				return parts[2].Trim();
 			}
 
 			return String.Empty;
 		}
 
+
+		/// <summary>
+		/// Extract just the feature name from the given fully qualified class name.
+		/// </summary>
+		/// <param name="qualifiedName">
+		/// A fully qualified .NET class name of the form
+		/// namespace.folder...class, assembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+		/// </param>
+		/// <returns>
+		/// Just the "class" name from the fully qualified name
+		/// </returns>
+		public string GetFeatureName(string qualifiedName)
+		{
+			var comma = qualifiedName.IndexOf(',');
+			if (comma > 0)
+			{
+				var name = qualifiedName.Substring(0, comma);
+				var parts = name.Split('.');
+				if (parts.Length > 0)
+				{
+					return parts[parts.Length - 1].Trim();
+				}
+
+				return name;
+			}
+
+			return qualifiedName;
+		}
 
 		public string GetShortDateTime(string time)
 		{
@@ -106,22 +129,6 @@ namespace TrxReporter
 			}
 
 			return name;
-		}
-
-
-		public string RemoveAssemblyName(string asm)
-		{
-			int idx = asm.IndexOf(',');
-			if (idx == -1)
-				return asm;
-			return asm.Substring(0, idx);
-		}
-
-
-		public string RemoveNamespace(string asm)
-		{
-			int coma = asm.IndexOf(',');
-			return asm.Substring(coma + 2, asm.Length - coma - 2);
 		}
 
 
