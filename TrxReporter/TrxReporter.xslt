@@ -21,17 +21,12 @@
         </title>
       </head>
       <body>
-        <div id="divToRefresh" class="wrapOverall">
-          <div id="floatingImageBackground" class="floatingImageBackground" style="visibility: hidden;">
-            <div class="floatingImageCloseButton" onclick="hide('floatingImageBackground');"></div>
-            <img src="" id="floatingImage"/>
-          </div>
-          <br />
+        <xsl:variable name="testRunName" select="/t:TestRun/@name" />
+        <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
+
+        <div id="wrapper" class="wrapper">
 
           <!-- Title - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-          <xsl:variable name="testRunName" select="/t:TestRun/@name" />
-          <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
 
           <xsl:call-template name="BuildTitleBar">
             <xsl:with-param name="title" select="pens:MakeCustomName($testRunName,$storage)"/>
@@ -312,6 +307,7 @@
           <h6 style="text-align:center">
             &#169; <xsl:value-of select="pens:GetYear()"/>, Internal Use Only
           </h6>
+
         </div>
 
         <div id="pictureBox" class="pictureBox" onclick="ClosePictureBox()">
@@ -334,41 +330,23 @@
     <xsl:param name="countersFailed" />
     <xsl:choose>
       <xsl:when test="$countersFailed != 0">
-        <div class="StatusBar statusBarFailed">
-          <div class="statusBarFailedInner">
-            <center>
-              <h1>
-                <div class="titleCenterd">
-                  <xsl:value-of select="$title"/>
-                </div>
-              </h1>
-            </center>
+        <div class="titleBar failed">
+          <div>
+            <xsl:value-of select="$title"/>
           </div>
         </div>
       </xsl:when>
       <xsl:when test="($countersPassed + $countersFailed) &lt; $countersExecuted">
-        <div class="StatusBar statusBarCompleted">
-          <div class="statusBarCompletedInner">
-            <center>
-              <h1>
-                <div class="titleCenterd">
-                  <xsl:value-of select="$title"/>
-                </div>
-              </h1>
-            </center>
+        <div class="titleBar completed">
+          <div>
+            <xsl:value-of select="$title"/>
           </div>
         </div>
       </xsl:when>
       <xsl:otherwise>
-        <div class="StatusBar statusBarPassed">
-          <div class="statusBarPassedInner">
-            <center>
-              <h1>
-                <div class="titleCenterd">
-                  <xsl:value-of select="$title"/>
-                </div>
-              </h1>
-            </center>
+        <div class="titleBar passed">
+          <div>
+            <xsl:value-of select="$title"/>
           </div>
         </div>
       </xsl:otherwise>

@@ -2,18 +2,25 @@
 var myColor = ["#c0eec0", "#fed9d9", "#FBE87E"];//green,red,yellow
 var myStrokeColor = ["#7CCD7C", "#d42945", "#ffcc00"];
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Toggle visibility of multiple TR elements with ID that ends in [key] and update button
+
 function ToggleAll(key, buttonId, textOnHide, textOnShow) {
     var button = document.getElementById(buttonId);
     var rows = document.querySelectorAll("tr[id$='" + key + "']");
-    for (var r = 0; r < rows.length; r++)
-    {
+    for (var r = 0; r < rows.length; r++) {
         Toggle(rows[r], button, textOnHide, textOnShow);
     }
 }
 
+
+// Toggle visibility of specified element and update button
+
 function ToggleOne(id, buttonId, textOnHide, textOnShow) {
     Toggle(document.getElementById(id), document.getElementById(buttonId), textOnHide, textOnShow);
 }
+
 
 function Toggle(row, button, textOnHide, textOnShow) {
     if (row.classList.contains('visibleRow')) {
@@ -28,23 +35,32 @@ function Toggle(row, button, textOnHide, textOnShow) {
     }
 }
 
-function show(id) {
-    document.getElementById(id).style.visibility = "visible";
-    document.getElementById(id).style.display = "block";
-}
-function hide(id) {
 
-    document.getElementById(id).style.visibility = "hidden";
-    document.getElementById(id).style.display = "none";
-}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-function updateFloatingImage(url) {
-    document.getElementById('floatingImage').src = url;
+// Open clicked image in pictureBox DIV
+
+function OpenInPictureBox(img) {
+    var box = document.getElementById("pictureBox");
+    var pic = document.getElementById("pictureBoxImg");
+    pic.src = img.src;
+    box.style.display = "block";
 }
 
-/**
- * @return {number}
- */
+function ClosePictureBox() {
+    document.getElementById("pictureBox").style.display = "none";
+}
+
+
+document.onkeyup = function (e) {
+    if ((e.key === "Escape") && (document.getElementById("pictureBox").style.display === "block")) {
+        ClosePictureBox();
+    }
+};
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function GetTotal() {
     var myTotal = 0;
     for (var j = 0; j < myData.length; j++) {
@@ -227,24 +243,4 @@ function CreateHorizontalBars(id, totalPass, totalFailed, totalWarn) {
         ctx.fillRect(currX, (canvas.height - h) + 25, width, h);
         currX += width + 1;
     }
-}
-
-
-function OpenInPictureBox(img) {
-    var box = document.getElementById("pictureBox");
-    var pic = document.getElementById("pictureBoxImg");
-    pic.src = img.src;
-    box.style.display = "block";
-}
-
-document.onkeyup = function(e) {
-    if ((e.key === "Escape") &&
-        (document.getElementById("pictureBox").style.display === "block"))
-    {
-        ClosePictureBox();
-    }
-}
-
-function ClosePictureBox() {
-    document.getElementById("pictureBox").style.display = "none";
 }
