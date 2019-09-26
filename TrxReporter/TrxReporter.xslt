@@ -6,10 +6,12 @@
     xmlns:pens="urn:Pens">
   <xsl:output method="html" indent="yes"/>
   <xsl:key name="TestMethods" match="t:TestMethod" use="@className"/>
-  <!--<xsl:namespace-alias stylesheet-prefix="t" result-prefix="#default"/>-->
 
   <xsl:template match="/" >
     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+    <xsl:variable name="testRunName" select="/t:TestRun/@name" />
+    <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
+    <xsl:variable name="reportTitle" select="pens:MakeCustomName($testRunName,$storage)" />
     <html>
       <head>
         <meta charset="utf-8"/>
@@ -17,19 +19,16 @@
         <link rel="stylesheet" type="text/css" href="TrxReporterTable.css"/>
         <script language="javascript" type="text/javascript" src="functions.js"></script>
         <title>
-          <xsl:value-of select="/t:TestRun/@name"/>
+          <xsl:value-of select="$reportTitle"/>
         </title>
       </head>
       <body>
-        <xsl:variable name="testRunName" select="/t:TestRun/@name" />
-        <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
-
         <div id="wrapper" class="wrapper">
 
           <!-- Title - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <xsl:call-template name="BuildTitleBar">
-            <xsl:with-param name="title" select="pens:MakeCustomName($testRunName,$storage)"/>
+            <xsl:with-param name="title" select="$reportTitle"/>
             <xsl:with-param name="countersExecuted" select="/t:TestRun/t:ResultSummary/t:Counters/@executed"/>
             <xsl:with-param name="countersPassed" select="/t:TestRun/t:ResultSummary/t:Counters/@passed"/>
             <xsl:with-param name="countersFailed" select="/t:TestRun/t:ResultSummary/t:Counters/@failed"/>
@@ -328,29 +327,18 @@
     <xsl:param name="countersExecuted" />
     <xsl:param name="countersPassed" />
     <xsl:param name="countersFailed" />
-    <xsl:choose>
-      <xsl:when test="$countersFailed != 0">
-        <div class="titleBar failed">
-          <div>
-            <xsl:value-of select="$title"/>
-          </div>
-        </div>
-      </xsl:when>
-      <xsl:when test="($countersPassed + $countersFailed) &lt; $countersExecuted">
-        <div class="titleBar completed">
-          <div>
-            <xsl:value-of select="$title"/>
-          </div>
-        </div>
-      </xsl:when>
-      <xsl:otherwise>
-        <div class="titleBar passed">
-          <div>
-            <xsl:value-of select="$title"/>
-          </div>
-        </div>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:variable name="status">
+      <xsl:choose>
+        <xsl:when test="$countersFailed != 0">failed</xsl:when>
+        <xsl:when test="($countersPassed + $countersFailed) &lt; $countersExecuted">completed</xsl:when>
+        <xsl:otherwise>passed</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <div class="titleBar {$status}">
+      <div>
+        <xsl:value-of select="$title"/>
+      </div>
+    </div>
   </xsl:template>
 
   <!-- BuildScenarioRow ======================================================================= -->
