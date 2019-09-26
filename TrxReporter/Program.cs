@@ -10,7 +10,7 @@
 	class Program
 	{
 
-		private const string XSLT = "TrxReporter.xslt";
+		private const string XSLT = "Reporter.xslt";
 		private const string HTMLExt = ".html";
 
 

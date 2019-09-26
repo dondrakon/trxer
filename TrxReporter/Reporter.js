@@ -14,14 +14,6 @@ function ToggleAll(key, buttonId, textOnHide, textOnShow) {
     }
 }
 
-
-// Toggle visibility of specified element and update button
-
-function ToggleOne(id, buttonId, textOnHide, textOnShow) {
-    Toggle(document.getElementById(id), document.getElementById(buttonId), textOnHide, textOnShow);
-}
-
-
 function Toggle(row, button, textOnHide, textOnShow) {
     if (row.classList.contains('visibleRow')) {
         button.innerHTML = textOnHide;
@@ -32,6 +24,29 @@ function Toggle(row, button, textOnHide, textOnShow) {
         button.innerHTML = textOnShow;
         row.classList.remove('hiddenRow');
         row.classList.add('visibleRow');
+    }
+}
+
+function ToggleOutput(head, id) {
+    var row = document.getElementById(id);
+    var twister = head.getElementsByClassName("twister");
+    if (twister.length > 0) {
+        twister = twister[0];
+    }
+
+    if (row.classList.contains('visibleRow')) {
+        row.classList.remove('visibleRow');
+        row.classList.add('hiddenRow');
+        if (twister) {
+            twister.innerHTML = "&#11208;";
+        }
+    }
+    else {
+        row.classList.remove('hiddenRow');
+        row.classList.add('visibleRow');
+        if (twister) {
+            twister.innerHTML = "&#11206;";
+        }
     }
 }
 
@@ -165,7 +180,7 @@ function CalculateTotalPrecents() {
     myParsedData.push(allFailed + " (" + Math.round(failedPct).toFixed(2) + "%)");
     myParsedData.push(allWarns + " (" + Math.round(warnPct).toFixed(2) + "%)");
 
-    document.getElementById('summaryGraph').innerHTML = "<tr class='odd'><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
+    document.getElementById('summaryGraph').innerHTML = "<tr><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
     CreatePie();
     AddEventListener();
 }
@@ -183,7 +198,7 @@ function CalculateTestsStatuses(testContaineId, canvasId) {
     var totalFailed = 0;
     var totalInconclusive = 0;
     var e = document.getElementById(testContaineId);
-    var tests = e.getElementsByClassName('Test');
+    var tests = e.getElementsByClassName('feature');
     for (var i = 0; i < tests.length; i++) {
         var test = tests[i];
         if (test.getElementsByClassName('warn').length > 0) {

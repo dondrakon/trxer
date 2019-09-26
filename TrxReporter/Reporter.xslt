@@ -7,6 +7,10 @@
   <xsl:output method="html" indent="yes"/>
   <xsl:key name="TestMethods" match="t:TestMethod" use="@className"/>
 
+  <!--
+  HTML arrow codes: https://www.key-shortcut.com/en/writing-systems/35-symbols/arrows/
+  -->
+
   <xsl:template match="/" >
     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
     <xsl:variable name="testRunName" select="/t:TestRun/@name" />
@@ -25,7 +29,7 @@
         <div id="wrapper" class="wrapper">
 
           <!-- Title - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-          
+
           <xsl:call-template name="BuildTitleBar">
             <xsl:with-param name="title" select="$reportTitle"/>
             <xsl:with-param name="countersExecuted" select="/t:TestRun/t:ResultSummary/t:Counters/@executed"/>
@@ -48,7 +52,7 @@
                       <div id="summaryGraph"></div>
                     </td>
                   </tr>
-                  <tr id="DownloadSection">
+                  <tr>
                     <td class="centered">
                       <a href="#" id="downloadButton" download="{/t:TestRun/@name}StatusesPie.png">Save graph</a>
                     </td>
@@ -178,26 +182,34 @@
                 <th class="section">Status</th>
                 <th class="section left">
                   <div style="float:left">Feature</div>
-                  <div class="scenariosButton" onclick="ToggleAll('TestsContainer','scenariosButtonText','Expand','Collapse');">
-                    <div class="scenariosButtonText" id="scenariosButtonText">Collapse</div>
+                  <div class="toggler" id="toggler" onclick="ToggleAll('TestsContainer','toggler','Expand','Collapse');">
+                    Collapse
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody>
               <xsl:for-each select="$features">
+                <xsl:variable name="featureClass" select="@className" />
                 <xsl:variable name="scenarios" select="key('TestMethods', @className)" />
                 <xsl:variable name="scenarioCount" select="count($scenarios)" />
+
+                <xsl:variable name="methods" select="//t:TestMethod[@className=$featureClass]/@name" />
+                <xsl:variable name="passed" select="count(/t:TestRun/t:Results/t:UnitTestResult[@testName=$methods and @outcome='Passed'])" />
 
                 <!-- Scenario header -->
 
                 <tr>
-                  <td class="PackageStatus">
+                  <td class="statusGraph">
                     <canvas id="{generate-id(@className)}canvas" width="100" height="25">
                     </canvas>
                   </td>
                   <td class="scenario" style="text-align:left">
                     <xsl:value-of select="pens:GetFeatureName(@className)" />
+                    <xsl:call-template name="BuildCounts">
+                      <xsl:with-param name="passed" select="$passed" />
+                      <xsl:with-param name="total" select="$scenarioCount" />
+                    </xsl:call-template>
                   </td>
                 </tr>
                 <tr id="{generate-id(@className)}TestsContainer" class="visibleRow">
@@ -206,19 +218,14 @@
                     <table class="info">
                       <thead>
                         <tr>
-                          <th class="TestsTable" style="width:80px;">
+                          <th style="width:80px;">
                             <div style="width:80px;min-width:80px;display:block;">Status</div>
                           </th>
-                          <th class="TestsTable" style="text-align:left">
+                          <th style="text-align:left">
                             Scenario (<xsl:value-of select="$scenarioCount" />)
                           </th>
-                          <th class="TestsTable" style="width:100px;">
+                          <th style="width:100px;">
                             <div style="width:100px;min-width:100px;">Duration</div>
-                          </th>
-                          <th style="width:80px">
-                            <div style="width:80px;min-width:80px;">
-                              <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
-                            </div>
                           </th>
                         </tr>
                       </thead>
@@ -317,27 +324,26 @@
   <xsl:template name="BuildScenarioRow">
     <xsl:param name="scenarioId" />
     <xsl:for-each select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$scenarioId]">
-      <tr class="Test">
+      <!-- "feature" class used by JavaScript to build graphs -->
+      <tr class="feature">
         <xsl:call-template name="BuildStatusColumn">
           <xsl:with-param name="outcome" select="@outcome" />
         </xsl:call-template>
         <td class="left">
-          <xsl:value-of select="@testName" />
+          <span class="featureHead" onclick="ToggleOutput(this, '{$scenarioId}Details')">
+            <span class="twister">&#11208;</span>
+            <xsl:value-of select="@testName" />
+          </span>
         </td>
         <td class="nowrap">
           <xsl:value-of select="pens:ToExactTimeDefinition(@duration)" />
         </td>
-        <td>
-          <div class="OpenMoreButton" onclick="ToggleOne('{$scenarioId}Details','{$scenarioId}DetailsButton','Show Gherkin','Hide Gherkin');">
-            <div class="MoreButtonText" id="{$scenarioId}DetailsButton">Show Gherkin</div>
-          </div>
-        </td>
       </tr>
-      <tr id="{$scenarioId}Details" class="Messages hiddenRow">
+      <tr id="{$scenarioId}Details" class="messages hiddenRow">
         <td>
           <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
         </td>
-        <td class="Test Messages" colspan="3">
+        <td class="Test messages" colspan="2">
           <xsl:call-template name="BuildOutput">
             <xsl:with-param name="testId" select="$scenarioId" />
           </xsl:call-template>
@@ -345,6 +351,24 @@
       </tr>
     </xsl:for-each>
   </xsl:template>
+
+  <xsl:template name="BuildCounts">
+    <xsl:param name="passed" />
+    <xsl:param name="total" />
+    <xsl:choose>
+      <xsl:when test="$passed=$total">
+        <div class="counts passed">
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="counts failed">
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 
   <!-- BuildStatusColumn ====================================================================== -->
 
@@ -396,9 +420,9 @@
     <xsl:param name="testId" />
 
     <xsl:for-each select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output">
-      <xsl:variable name="StdOut" select="t:StdOut"/>
-      <xsl:if test="$StdOut">
-        <xsl:value-of select="pens:FormatOutput($StdOut)" disable-output-escaping="yes" />
+      <xsl:variable name="stdOut" select="t:StdOut"/>
+      <xsl:if test="$stdOut">
+        <xsl:value-of select="pens:FormatOutput($stdOut)" disable-output-escaping="yes" />
         <br/>
       </xsl:if>
 
@@ -409,19 +433,19 @@
       </xsl:if>
 
       <xsl:variable name="error" select="t:ErrorInfo/t:Message"/>
-      <xsl:if test="error">
-        <div class="exMessage">
+      <xsl:if test="$error">
+        <div class="errorMessage">
           <xsl:value-of select="$error"/>
           <br/>
         </div>
       </xsl:if>
 
       <xsl:if test="$stdErr or $error">
-        <xsl:variable name="trace" select="/t:TestRun/t:Results/t:UnitTestResult[@testId=$testId]/t:Output/t:ErrorInfo/t:StackTrace" />
+        <xsl:variable name="trace" select="t:ErrorInfo/t:StackTrace" />
         <div class="stacktrace visibleRow" id="{generate-id($testId)}Stacktrace">
           <div class="dropArrow">&#8627;</div>
-          <div class="exScroller">
-            <pre class="exMessage">
+          <div class="exceptionScroller">
+            <pre class="exception">
               <!-- trim off the first space char -->
               <xsl:value-of select="substring($trace,2)" />
             </pre>
