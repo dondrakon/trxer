@@ -15,8 +15,8 @@
     <html>
       <head>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" type="text/css" href="TrxReporter.css"/>
-        <script language="javascript" type="text/javascript" src="functions.js"></script>
+        <link rel="stylesheet" type="text/css" href="Reporter.css"/>
+        <script language="javascript" type="text/javascript" src="Reporter.js"></script>
         <title>
           <xsl:value-of select="$reportTitle"/>
         </title>
