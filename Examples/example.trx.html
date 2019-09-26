@@ -3,170 +3,32 @@
     <META http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <style>
-html,
-body,
-form,
-fieldset,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-pre,
-blockquote,
-ul,
-ol,
-dl,
-address {
+/* Elements  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+html, pre {
     margin: 0;
     padding: 0;
 }
 
-.wrapOverall {
-    width: auto;
-    margin: -8px 0px 0px 0px;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#floatingImageBackground {
-    position: fixed;
-    display: none;
-    top: 50%;
-    left: 50%;
-    margin-top: -300px;
-    margin-left: -330px;
-    z-index: 100;
-    width: 680px;
-    height: 600px;
-    visibility: hidden;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    border: 2px #0f9bdc;
-    border-style: solid;
-}
-
-.hWhite {
-    color: white;
-}
-
-.titleCenterd {
-    position: relative;
-    top: 12px;
-    text-shadow: 1px 1px 1px #194c19;
-}
-
-.StatusBar {
-    color:white;
-    width: 100%;
-    height: 60px;
-}
-
-.statusBarPassed {
-    background-color: #5bab5b;
-}
-
-.statusBarFailed {
-    background-color: #b93333;
-}
-
-.statusBarCompleted {
-    background-color: #d5bb2b;
-}
-
-.statusBarCompletedInner {
-    position: relative;
-    background-color: #b59b0c;
-    width: 100%;
-    height: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    top: 15%;
-}
-
-.statusBarFailedInner {
-    position: relative;
-    background-color: #a90000;
-    width: 100%;
-    height: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    top: 15%;
-}
-
-.statusBarPassedInner {
-    position: relative;
-    background-color: #339833;
-    width: 100%;
-    height: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    top: 15%;
-}
-
-.storage {
-    font-size:10pt;
-    color: #797979;
-    text-align: left;
-}
-
-#floatingImage {
-    position: relative;
-    margin-left: 8%;
-    margin-top: 6%;
-    width: auto;
-    max-width: 566px;
-}
-
-.floatingImageCloseButton {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgABeNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAtAGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEOcqAAB4mbI8uSQ5RYFbCC1xB1dXLh4ozkkXKxQ2YQJhmkAuwnmZGTKBNA/g88wAAKCRFRHgg/P9eM4Ors7ONo62Dl8t6r8G/yJiYuP+5c+rcEAAAOF0ftH+LC+zGoA7BoBt/qIl7gRoXgugdfeLZrIPQLUAoOnaV/Nw+H48PEWhkLnZ2eXk5NhKxEJbYcpXff5nwl/AV/1s+X48/Pf14L7iJIEyXYFHBPjgwsz0TKUcz5IJhGLc5o9H/LcL//wd0yLESWK5WCoU41EScY5EmozzMqUiiUKSKcUl0v9k4t8s+wM+3zUAsGo+AXuRLahdYwP2SycQWHTA4vcAAPK7b8HUKAgDgGiD4c93/+8//UegJQCAZkmScQAAXkQkLlTKsz/HCAAARKCBKrBBG/TBGCzABhzBBdzBC/xgNoRCJMTCQhBCCmSAHHJgKayCQiiGzbAdKmAv1EAdNMBRaIaTcA4uwlW4Dj1wD/phCJ7BKLyBCQRByAgTYSHaiAFiilgjjggXmYX4IcFIBBKLJCDJiBRRIkuRNUgxUopUIFVIHfI9cgI5h1xGupE7yAAygvyGvEcxlIGyUT3UDLVDuag3GoRGogvQZHQxmo8WoJvQcrQaPYw2oefQq2gP2o8+Q8cwwOgYBzPEbDAuxsNCsTgsCZNjy7EirAyrxhqwVqwDu4n1Y8+xdwQSgUXACTYEd0IgYR5BSFhMWE7YSKggHCQ0EdoJNwkDhFHCJyKTqEu0JroR+cQYYjIxh1hILCPWEo8TLxB7iEPENyQSiUMyJ7mQAkmxpFTSEtJG0m5SI+ksqZs0SBojk8naZGuyBzmULCAryIXkneTD5DPkG+Qh8lsKnWJAcaT4U+IoUspqShnlEOU05QZlmDJBVaOaUt2ooVQRNY9aQq2htlKvUYeoEzR1mjnNgxZJS6WtopXTGmgXaPdpr+h0uhHdlR5Ol9BX0svpR+iX6AP0dwwNhhWDx4hnKBmbGAcYZxl3GK+YTKYZ04sZx1QwNzHrmOeZD5lvVVgqtip8FZHKCpVKlSaVGyovVKmqpqreqgtV81XLVI+pXlN9rkZVM1PjqQnUlqtVqp1Q61MbU2epO6iHqmeob1Q/pH5Z/YkGWcNMw09DpFGgsV/jvMYgC2MZs3gsIWsNq4Z1gTXEJrHN2Xx2KruY/R27iz2qqaE5QzNKM1ezUvOUZj8H45hx+Jx0TgnnKKeX836K3hTvKeIpG6Y0TLkxZVxrqpaXllirSKtRq0frvTau7aedpr1Fu1n7gQ5Bx0onXCdHZ4/OBZ3nU9lT3acKpxZNPTr1ri6qa6UbobtEd79up+6Ynr5egJ5Mb6feeb3n+hx9L/1U/W36p/VHDFgGswwkBtsMzhg8xTVxbzwdL8fb8VFDXcNAQ6VhlWGX4YSRudE8o9VGjUYPjGnGXOMk423GbcajJgYmISZLTepN7ppSTbmmKaY7TDtMx83MzaLN1pk1mz0x1zLnm+eb15vft2BaeFostqi2uGVJsuRaplnutrxuhVo5WaVYVVpds0atna0l1rutu6cRp7lOk06rntZnw7Dxtsm2qbcZsOXYBtuutm22fWFnYhdnt8Wuw+6TvZN9un2N/T0HDYfZDqsdWh1+c7RyFDpWOt6azpzuP33F9JbpL2dYzxDP2DPjthPLKcRpnVOb00dnF2e5c4PziIuJS4LLLpc+Lpsbxt3IveRKdPVxXeF60vWdm7Obwu2o26/uNu5p7ofcn8w0nymeWTNz0MPIQ+BR5dE/C5+VMGvfrH5PQ0+BZ7XnIy9jL5FXrdewt6V3qvdh7xc+9j5yn+M+4zw33jLeWV/MN8C3yLfLT8Nvnl+F30N/I/9k/3r/0QCngCUBZwOJgUGBWwL7+Hp8Ib+OPzrbZfay2e1BjKC5QRVBj4KtguXBrSFoyOyQrSH355jOkc5pDoVQfujW0Adh5mGLw34MJ4WHhVeGP45wiFga0TGXNXfR3ENz30T6RJZE3ptnMU85ry1KNSo+qi5qPNo3ujS6P8YuZlnM1VidWElsSxw5LiquNm5svt/87fOH4p3iC+N7F5gvyF1weaHOwvSFpxapLhIsOpZATIhOOJTwQRAqqBaMJfITdyWOCnnCHcJnIi/RNtGI2ENcKh5O8kgqTXqS7JG8NXkkxTOlLOW5hCepkLxMDUzdmzqeFpp2IG0yPTq9MYOSkZBxQqohTZO2Z+pn5mZ2y6xlhbL+xW6Lty8elQfJa7OQrAVZLQq2QqboVFoo1yoHsmdlV2a/zYnKOZarnivN7cyzytuQN5zvn//tEsIS4ZK2pYZLVy0dWOa9rGo5sjxxedsK4xUFK4ZWBqw8uIq2Km3VT6vtV5eufr0mek1rgV7ByoLBtQFr6wtVCuWFfevc1+1dT1gvWd+1YfqGnRs+FYmKrhTbF5cVf9go3HjlG4dvyr+Z3JS0qavEuWTPZtJm6ebeLZ5bDpaql+aXDm4N2dq0Dd9WtO319kXbL5fNKNu7g7ZDuaO/PLi8ZafJzs07P1SkVPRU+lQ27tLdtWHX+G7R7ht7vPY07NXbW7z3/T7JvttVAVVN1WbVZftJ+7P3P66Jqun4lvttXa1ObXHtxwPSA/0HIw6217nU1R3SPVRSj9Yr60cOxx++/p3vdy0NNg1VjZzG4iNwRHnk6fcJ3/ceDTradox7rOEH0x92HWcdL2pCmvKaRptTmvtbYlu6T8w+0dbq3nr8R9sfD5w0PFl5SvNUyWna6YLTk2fyz4ydlZ19fi753GDborZ752PO32oPb++6EHTh0kX/i+c7vDvOXPK4dPKy2+UTV7hXmq86X23qdOo8/pPTT8e7nLuarrlca7nuer21e2b36RueN87d9L158Rb/1tWeOT3dvfN6b/fF9/XfFt1+cif9zsu72Xcn7q28T7xf9EDtQdlD3YfVP1v+3Njv3H9qwHeg89HcR/cGhYPP/pH1jw9DBY+Zj8uGDYbrnjg+OTniP3L96fynQ89kzyaeF/6i/suuFxYvfvjV69fO0ZjRoZfyl5O/bXyl/erA6xmv28bCxh6+yXgzMV70VvvtwXfcdx3vo98PT+R8IH8o/2j5sfVT0Kf7kxmTk/8EA5jz/GMzLdsAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAABBtJREFUeNrUmUtPG1cUgD+blxsenhpHTUEtkwi6QBBNpG5qb6wWRaq6sdRkFUWy4i2J5h+MvLDbn5AN66z8D1hYssp6VAjroTXtAmzGTUITyHi6OYOuBxtsIMWMdDRzx557Pp/X3Hsc4fJHRDkH174IyvlSk/f7TASIAkMiwzJWAVvAR8ATaYXArxwwogCNiowp1wEkCtyRyAflOgD2rwowolhpDPgMuAVMAOMyjgEj8j0E4Bh4D/wLvAPeAocy/qBY178oYODKAOwWMAXEAU1kCphIpVIzy8vLyUQiMQ7QaDTebW5u7m9sbPwlYP8ArkhTxocKaFfXD58DN6KAJYDbIgnLslIrKyv3FxcXv04kEhOdJmk0Gm+3t7f/WF9f/71QKGwADWBPpKGAHveTUEECxIBpYAFIA4+B1WKxWK7X62/8Po96vf6mWCyWgVWZKy1zT4uuaCePdnJxVCw3ASSBL4Gv8vl8ulAo/Dw7O5sMP7Czs4PjOLiuC4Cmaei6ztzc3KnJd3d39y3LKq+trf0G/An8DexLKBxLgp1pvVHgc/l1GSBXKpXKnud5qkUcx/FN0/R1XfeVGGoTXdd90zR9x3HarOl5nlcqlcpATnQsiM7R8xJ3GJgE5sQFT0ulUlmd3HVd3zTNrlDdxDRN33XdNlCBfCq65kT38FnWiwFfAA+Ax/l8/qVqOdu2fcMw+oYLxDAM37btNkvm8/mXEpMPRHesmxWHpYQsAA+B1VqttqfCaZp2YbhANE1rg6zVanuSOA9Fd7yTFSNS6+4A3wJPisViWXXrZSzXyZKquyW7n4juO8ISCWfuJHAPWAGeq6XkIjHXS0yqJQh4LrrvCUs07N5p4D7wyLKsV2q2nqUom812tK5hGH42mz3zWTW7Lct6BTwShumwm8eAGeA74Fm1Wn3di/VyuVzHEFBdmMvlerJitVp9DTwThhlhOom/ceAu8APwQnVvtzqXzWb9cPkxDONUfPm+39WSuq6H3fwC+B7Q5RUbCQCngG+An1Kp1K+9uLcTiOu6He+dlWCqm9Pp9C/Aj5LNk0Akqrx7R4CRpaWl24FpHcfpWtFt2yaTydBsNk/uxeNx4vH4ybjZbJLJZLBtu+s8qg7RHawth8KAUWBofn4+0QtgN8h+4MJHq9UKFsRRtbygLnUODg7eBzc0TeO6j6iyf2gBXr1eP+wV0DAMKpVKm1tVd1cqFQzD6B0mGlX3L6cAPwJHW1tbe8GHuq73BddsNk/F5HmQqg7RfRTeDkQkpXVJ8YErMwNfqG/Eq27gFwsDv9wa+AXrjVjyD/ymaSC3nVe6cQdwXfeTbtxvROvjuppHHTtcV9p+a7VaQ8lkMnaV7bcb3cDspwU8EmoB+/9nC7iXJnogahPdC8knb6Jfy98Q/w0Amdn66HQGzvsAAAAASUVORK5CYII=');
-    font-size: 50px;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    bottom: 20px;
-    left: 3%;
-    text-align: center;
-    cursor: pointer;
-    float: right;
-    background-repeat: no-repeat;
-}
-
-.atachmentImage {
-    float: right;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background-size: 20px 20px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAJFBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAW+S7RAAAAC3RSTlMAABBAYHCfv8/f7y5wfg4AAACNSURBVHhendC9DYMwFEXhq0BEi7egTJEBIlHSuKdhBHpGYARGSEtA8JaDBwjbt0Aop/zk5z8Y6gZoh8KVyVrl4NEqDDiXZ7JVGZPu0O4wbPDsxGuyKCXoh28IM4Q6YMzfTQAfIPahx1rhQa2QONAJnXHwUoiugEd4Uz6WL8ZXF4qfP/EH9fSFs4Wh/oAFE9baEPQEC+YAAAAASUVORK5CYIIyNjk=');
-}
-
-
-#exceptionArrow {
-    float: left;
-    font-size: 20px;
-}
-
-h1 {
-    font-size: 25px;
-}
-
 body {
-    font: 16px/20px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
-    margin-top: -10px;
+    font: 14px/18px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
     min-width: 890px;
 }
 
-p {
+footer {
+    color: #6c7e8e;
+    font: 12px/14px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+    letter-spacing: .15em;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+img {
+    border: 0;
+    margin-top: .5em;
 }
 
 a:link {
@@ -188,193 +50,175 @@ a:focus {
     text-decoration: none;
 }
 
+/* TitleBar  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-.StatusesBorders {
-    border-width: 0;
-    border-right: 1px solid;
-    border-left: 1px solid;
-    width: 100px;
+.titleBar {
+    margin-top: 30px;
+    width: 100%;
+    height: 60px;
 }
 
-.PackageStatus {
-    width: 100px;
-}
+    .titleBar.passed {
+        background-color: #5bab5b;
+    }
 
-.SummaryTable {
-    width: auto;
-    max-width: 407px;
-    float: left;
-    margin-right: 0px;
-}
+        .titleBar.passed > div {
+            background-color: #339833;
+        }
 
-#divToRefresh > div > table.SummaryTable > tbody > tr > th {
-    width: auto;
-}
+    .titleBar.failed {
+        background-color: #b93333;
+    }
 
-.DetailsTable {
-    width: auto;
-    max-width: 407px;
-    float: left;
-    margin-right: 0px;
-    text-align: left;
-    word-wrap: break-word;
-}
+        .titleBar.failed > div {
+            background-color: #a90000;
+        }
 
-.StatusesTable {
-    width: auto;
-}
+    .titleBar.completed {
+        background-color: #d5bb2b;
+    }
 
-#divToRefresh > div.SummaryDiv > table.DetailsTable > tbody > tr > td {
-    text-align: left;
-    word-wrap: break-word;
-}
+        .titleBar.completed > div {
+            background-color: #b59b0c;
+        }
 
-#divToRefresh > div.SummaryDiv > table.DetailsTable > tbody > tr > th {
-    width: 30px;
-    /*background-color: #FFFFFF;*/
-}
+    .titleBar > div {
+        position: relative;
+        top: 8px;
+        width: 100%;
+        height: 44px;
+        line-height: 40px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        color: white;
+        font-size: 25px;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px #194c19;
+    }
 
-td.slowest {
-    width: auto;
-}
+/* Summary - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#TotalTestsTable {
-    min-width: 250px;
-    width: auto;
-    float: left;
-    margin-right: 0px;
-}
-
-.SummaryDiv {
+.summaryWrapper {
     width: 90%;
     margin: 1em auto;
+}
+
+    .summaryWrapper > div {
+        float: left;
+        margin-right: 40px;
+        vertical-align: top;
+    }
+
+
+/* Informational Table - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+table.info {
+    width: 95%;
+    margin: 1em auto;
     border-collapse: collapse;
+    border: 1px solid #a2caf2;
 }
 
-.Summary {
-    float: left;
-    border-collapse: collapse;
+    table.info > caption {
+        caption-side: top;
+        color: #9ba9b4;
+        font-size: 16px;
+        letter-spacing: .2em;
+        margin: 1em 0 0 0;
+        padding: 0;
+        text-align: center;
+        font-weight: normal;
+        border-top: 1px solid #a2caf2;
+        border-left: 1px solid #a2caf2;
+        border-right: 1px solid #a2caf2;
+    }
+
+    table.info > thead > tr > th {
+        background: #dbedff;
+        border-left: 1px solid #a2caf2;
+        border-top: 1px solid #a2caf2;
+        text-align: center;
+        color: #66a3d3;
+        font: 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+        font-weight: normal !important;
+        padding: .2em 1em;
+    }
+
+    table.info > tbody > tr > th {
+        background: #dbedff;
+        border-top: 1px solid #a2caf2;
+        color: #678197;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        padding: .3em 1em;
+    }
+
+    table.info > tbody > tr > td {
+        color: #425b71;
+        text-align: left;
+        padding: .3em 1em;
+        border-left: 1px solid #a2caf2;
+        border-top: 1px solid #a2caf2;
+        word-wrap: break-word;
+    }
+
+/* Scenario Table  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+table.section {
+    margin-top: 40px !important;
 }
 
-#btn-download {
-    font-size: 14px;
+th.section {
+    background-color: #fffadd !important;
+    font-weight: bold !important;
 }
 
-.column1 {
-    background: #dbedff;
-    width: auto !important;
-    white-space: nowrap;
+td.scenario {
+    font-weight: bold;
 }
 
-.column1Failed {
-    background: #fed9d9;
-    width: 30px;
+    td.scenario .counts {
+        float: right;
+        width: 40%;
+        font-weight: normal;
+    }
+
+    td.scenario .failed {
+        color: #d42945 !important;
+    }
+
+    td.scenario .passed {
+        color: #58ba58 !important;
+    }
+
+td.statusGraph {
+    width: 100px;
 }
 
-#ReportsTable > tbody > tr > th {
-    background: #E8E8E8;
-    width: 170px;
-}
-
-#ReportsTable th {
-}
-
-#TotalPassed {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #7CCD7C;
-    background: #c0eec0;
-    border: 1px solid #7CCD7C;
-    margin-bottom: 5px;
-}
-
-#TotalWarn {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #E4C100;
-    background: #FBE87E;
-    border: 1px solid #E4C100;
-    margin-bottom: 5px;
-}
-
-#TotalFailed {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    color: #d42945;
-    background: #fed9d9;
-    border: 1px solid #d42945;
-    margin-bottom: 5px;
-}
-
-#TotalInfo {
-    min-width: 30px;
-    width: auto;
-    height: auto;
-    border: 1px solid #c7c7c7;
-    color: #c7c7c7;
+td.info {
+    color: #c7c7c7 !important;
     background: #e0e0e0;
+    font-weight: bold;
 }
 
-#dataViewer {
-    width: 240px;
+td.failed {
+    color: #d42945 !important;
+    background: #fed9d9;
+    font-weight: bold;
 }
 
-.OpenMoreButton {
-    height: auto;
-    width: 160px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    color: #1b99fb;
-    background-color: white;
-    border: 1px solid #7ac5ff;
-    float: right;
+td.passed {
+    color: #58ba58 !important;
+    background: #c0eec0;
+    font-weight: bold;
 }
 
-.OpenMoreButton:hover {
-    background-color: #bfe3ff;
-    text-decoration: none;
-}
-
-
-#MoreButtonText {
-    color: #1b99fb;
-    top: 0;
-    left: 20px;
-    font-weight: normal;
-    text-align: center;
-    font-size: 15px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
-
-.NumberTag {
-    display: inline;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-right: 4px;
-    height: auto;
-    color: #678197;
-    border: 1px solid #78bcff;
-    background-color: #ffffff;
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 2px;
-    line-height: 27px;
-}
-
-.NumberTagRed {
-    background-color: #fed9d9;
-}
-
-.NumberTagGreen {
-    background-color: #c0eec0;
-}
-
-.NumberTagYellow {
-    background-color: #FBE87E;
+td.warn {
+    color: #E4C100 !important;
+    background: #FBE87E;
+    font-weight: bold;
 }
 
 .hiddenRow {
@@ -386,9 +230,79 @@ td.slowest {
     visibility: visible;
 }
 
+span.twister {
+    color: #678197;
+    font-size: larger;
+    margin-right: 5px;
+}
+
+span.featureHead {
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+    span.featureHead:hover {
+        color: #1b99fb;
+    }
+
+td.messages {
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 600px;
+    font-size: 14px;
+}
+
+span.traceMessage {
+    font-style: italic;
+    margin-left: 1.5em;
+    color: #999999;
+}
+
+span.traceError {
+    font-style: italic;
+    margin-left: 1.5em;
+    color: #FF0000;
+}
+
+div.errorMessage {
+    color: #c71010;
+    font-style: italic;
+    display: inline;
+}
+
+div.exceptionScroller {
+    width: calc(100% - 50px);
+    overflow-x: scroll;
+    margin: 1em auto;
+    border: 1px solid #a2caf2;
+}
+
+pre.exception {
+    font-size: 13px !important;
+    color: #800000;
+}
+
+div.toggler {
+    color: #9bafc0;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: "Trebuchet MS", Arial, Arial, Helvetica, sans-serif;
+    width: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    float: right;
+}
+
+    div.toggler:hover {
+        color: #f03b58;
+        text-decoration: underline;
+    }
+
+/* PictureBox  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #pictureBox,
-.pictureBox {
+div.pictureBox {
     display: none;
     position: fixed;
     z-index: 1;
@@ -401,14 +315,15 @@ td.slowest {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.8);
 }
-.pictureBoxImg {
-    margin: auto;
-    display: block;
-    width: 94%;
-    max-width: 2000px;
-    animation-name: zoom;
-    animation-duration: 0.5s;
-}
+
+    div.pictureBox > img {
+        margin: auto;
+        display: block;
+        width: 94%;
+        max-width: 2000px;
+        animation-name: zoom;
+        animation-duration: 0.5s;
+    }
 
 @keyframes zoom {
     from {
@@ -425,324 +340,116 @@ td.slowest {
         width: 100%;
     }
 }
-</style>
-    <style>table.summaryLayout {
-    margin-top: 0px !important;
-    margin-right: 0px !important;
-    padding: 0px;
-    border: none !important;
+
+/* General - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.centered {
+    text-align: center !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
+div.dropArrow {
     float: left;
-}
-tr.summaryLayout {
-    border: none;
-}
-td.summaryLayout {
-    vertical-align: top;
-    border: none;
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-top: 0px;
-    padding-top: 0px;
-    white-space: nowrap;
+    font-size: 20px;
 }
 
-table a,
-table a:link,
-table a:visited {
-    border: none;
-}
-
-img {
-    border: 0;
-    margin-top: .5em;
-}
-
-table {
-    width: 95%;
-    margin: 1em auto;
-    border-collapse: collapse;
-    border: 1px solid #a2caf2;
-}
-
-caption {
-    color: #9ba9b4;
-    font-size: 16px;
-    letter-spacing: .2em;
-    margin: 1em 0 0 0;
-    padding: 0;
-    caption-side: top;
-    text-align: center;
-    font-weight: normal;
-    border-top: 1px solid #a2caf2;
-    border-left: 1px solid #a2caf2;
-    border-right: 1px solid #a2caf2;
-}
-
-tr.odd .column1 {
-    background: #dbedff;
-}
-
-tr.odd.column1Failed	{
-	background:#fed9d9;
-	width:30px;
-	}
-
-tr.odd td, tr.sep td {
-    background: #FFFFFF;
-}
-
-tr.sep .column1 {
-    background: #7CCD7C;
-}
-
-tr.odd .ex,
-tr.sep .ex,
-td.ex {
-    width: calc(100% - 100px);
-    text-align: left;
-    max-width: 1000px;
-}
-div.exMessage {
-    color: #c71010;
-    display: inline;
-}
-pre.exMessage {
-    font-size: 12px !important;
-    color: #800000;
-}
-div.exScroller {
-    width: 100%;
-    overflow-x: scroll;
-}
-
-div.times {
-    margin-top: 10px;
-    white-space: nowrap;
-    font-size: 16px;
-    color: #567997;
-}
-div.times br {
-    margin-top: 5px;
-}
-
-
-td.exShow {
-    text-align: left;
-    width: 100px;
-    color: #000;
-}
-
-div.testName {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding: 5px;
-    background: #d0d0d0;
-}
-
-td.statusCount {
+div.wrapper {
     width: auto;
+    margin: 0px 0px 0px 0px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-th.statusCount {
-    width: auto;
-}
-
-td.critical {
-    text-align: left;
-    width: 100px;
-}
-
-td.Message {
-    text-align: left;
-    width: auto;
-    word-wrap: break-word;
-}
-
-td.Messages {
-    text-align: left;
-    word-wrap: break-word;
-    max-width: 600px;
-    font-size: 14px;
-}
-a.Message {
-    font-size: 14px !important;
-    font-weight: bold;
-}
-
-pre.traceMessage {
-    font-size:13px;
-}
-span.traceMessage {
-    font-style: italic;
-    margin-left: 1.5em;
-    color: #999999;
-}
-span.traceError {
-    font-style: italic;
-    margin-left: 1.5em;
-    color: #FF0000;
-}
-
-.Atached {
-    width: 30px
-}
-
-td.Function {
-    text-align: left;
-}
-
-tr.sep .error,
-tr.odd .error,
-td.error {
-    background: #F08080;
-}
-
-tr.odd .warn,
-tr.sep .warn,
-td.warn {
-    color: #E4C100;
-    background: #FBE87E;
-    width: 90px;
-}
-
-tr.odd .info,
-td.info,
-tr.sep .info {
-    color: #c7c7c7;
-    background: #e0e0e0;
-    width: 90px;
-}
-
-tr.odd .failed,
-tr.sep.failed,
-td.failed {
-    color: #d42945;
-    background: #fed9d9;
-    width: 90px;
-}
-
-tr.odd .passed,
-tr.sep.passed,
-td.passed {
-    color: #58ba58;
-    background: #c0eec0;
-}
-
-td.top {
-    vertical-align: top;
-}
-
-td {
-    color: #425b71;
-    padding: .3em 1em;
-    text-align: center;
-    border-left: 1px solid #a2caf2;
-    border-top: 1px solid #a2caf2;
-    word-wrap: break-word;
-}
-
-td.scenario {
-    font-weight: bold;
-}
-
-th {
-    font-weight: normal;
-    color: #678197;
-    text-align: left;
-    border-left: 1px solid #a2caf2;
-    border-top: 1px solid #a2caf2;
-    padding: .3em 1em;
-}
-
-thead th.TestsTable {
-    font-size: 17px;
-    font-weight: normal;
-    margin-top:0px;
-}
-
-thead th {
-    background: #dbedff;
-    text-align: center;
-    font: bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
-    color: #66a3d3;
-}
-
-thead th.features {
-    background: #fffadd;
-    text-align: center;
-    font: bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
-    color: #66a3d3;
-}
-
-thead th.featuresLeft {
-    background: #fffadd;
-    text-align: left;
-    font: bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
-    color: #66a3d3;
-}
-
-tfoot th {
-    text-align: center;
-    background: #f4f9fe;
-}
-
-tfoot th strong {
-    font: bold 1.2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
-    margin: .5em .5em .5em 0;
-    color: #678197;
-}
-
-tfoot th em {
-    color: #678197;
-    font-weight: bold;
-    font-size: 1.1em;
-    font-style: normal;
+#summaryGraph {
+    width: 250px;
 }
 </style><script language="javascript" type="text/javascript">
 var myColor = ["#c0eec0", "#fed9d9", "#FBE87E"];//green,red,yellow
 var myStrokeColor = ["#7CCD7C", "#d42945", "#ffcc00"];
 
-function ShowHide(id1, id2, textOnHide, textOnShow) {
-    var row = document.getElementById(id1);
-    if (row.classList.contains('visibleRow'))
-    {
-        document.getElementById(id2).innerHTML = textOnHide;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Toggle visibility of multiple TR elements with ID that ends in [key] and update button
+
+function ToggleAll(key, buttonId, textOnHide, textOnShow) {
+    var button = document.getElementById(buttonId);
+    var rows = document.querySelectorAll("tr[id$='" + key + "']");
+    for (var r = 0; r < rows.length; r++) {
+        Toggle(rows[r], button, textOnHide, textOnShow);
+    }
+}
+
+function Toggle(row, button, textOnHide, textOnShow) {
+    if (row.classList.contains('visibleRow')) {
+        button.innerHTML = textOnHide;
         row.classList.remove('visibleRow');
         row.classList.add('hiddenRow');
     }
-    else
-    {
-        document.getElementById(id2).innerHTML = textOnShow;
+    else {
+        button.innerHTML = textOnShow;
         row.classList.remove('hiddenRow');
         row.classList.add('visibleRow');
     }
 }
 
-function AddEventListener() {
-    var button = document.getElementById('btn-download');
-    button.addEventListener('click', function () {
-        button.href = canvas.toDataURL('image/png');
-    });
+function ToggleOutput(head, id) {
+    var row = document.getElementById(id);
+    var twister = head.getElementsByClassName("twister");
+    if (twister.length > 0) {
+        twister = twister[0];
+    }
+
+    if (row.classList.contains('visibleRow')) {
+        row.classList.remove('visibleRow');
+        row.classList.add('hiddenRow');
+        if (twister) {
+            twister.innerHTML = "&#11208;";
+        }
+    }
+    else {
+        row.classList.remove('hiddenRow');
+        row.classList.add('visibleRow');
+        if (twister) {
+            twister.innerHTML = "&#11206;";
+        }
+    }
 }
 
-function show(id) {
-    document.getElementById(id).style.visibility = "visible";
-    document.getElementById(id).style.display = "block";
-}
-function hide(id) {
 
-    document.getElementById(id).style.visibility = "hidden";
-    document.getElementById(id).style.display = "none";
-}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-function updateFloatingImage(url) {
-    document.getElementById('floatingImage').src = url;
+// Open clicked image in pictureBox DIV
+
+function OpenInPictureBox(img) {
+    var box = document.getElementById("pictureBox");
+    var pic = document.getElementById("pictureBoxImg");
+    pic.src = img.src;
+    box.style.display = "block";
 }
 
-/**
- * @return {number}
- */
+function ClosePictureBox() {
+    document.getElementById("pictureBox").style.display = "none";
+}
+
+
+document.onkeyup = function (e) {
+    if ((e.key === "Escape") && (document.getElementById("pictureBox").style.display === "block")) {
+        ClosePictureBox();
+    }
+};
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function GetTotal() {
     var myTotal = 0;
     for (var j = 0; j < myData.length; j++) {
@@ -753,13 +460,11 @@ function GetTotal() {
 
 
 function CreatePie() {
-    var canvas;
-    var ctx;
     var lastend = 0;
     var myTotal = GetTotal();
 
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     CreateText();
@@ -849,17 +554,25 @@ function CalculateTotalPrecents() {
     myParsedData.push(allFailed + " (" + Math.round(failedPct).toFixed(2) + "%)");
     myParsedData.push(allWarns + " (" + Math.round(warnPct).toFixed(2) + "%)");
 
-    document.getElementById('dataViewer').innerHTML = "<tr class='odd'><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
+    document.getElementById('summaryGraph').innerHTML = "<tr><td><canvas id='canvas' width='260' height='150'>This text is displayed if your browser does not support HTML5 Canvas.</canvas></td></tr>";
     CreatePie();
     AddEventListener();
 }
+
+function AddEventListener() {
+    var button = document.getElementById('downloadButton');
+    button.addEventListener('click', function () {
+        button.href = canvas.toDataURL('image/png');
+    });
+}
+
 
 function CalculateTestsStatuses(testContaineId, canvasId) {
     var totalPassed = 0;
     var totalFailed = 0;
     var totalInconclusive = 0;
     var e = document.getElementById(testContaineId);
-    var tests = e.getElementsByClassName('Test');
+    var tests = e.getElementsByClassName('feature');
     for (var i = 0; i < tests.length; i++) {
         var test = tests[i];
         if (test.getElementsByClassName('warn').length > 0) {
@@ -920,434 +633,310 @@ function CreateHorizontalBars(id, totalPass, totalFailed, totalWarn) {
         currX += width + 1;
     }
 }
-
-
-function OpenInPictureBox(img) {
-    var box = document.getElementById("pictureBox");
-    var pic = document.getElementById("pictureBoxImg");
-    pic.src = img.src;
-    box.style.display = "block";
-}
-
-document.onkeyup = function(e) {
-    if ((e.key === "Escape") &&
-        (document.getElementById("pictureBox").style.display === "block"))
-    {
-        ClosePictureBox();
-    }
-}
-
-function ClosePictureBox() {
-    document.getElementById("pictureBox").style.display = "none";
-}</script><title>NivNavick@NIVNAVICK-PC 2014-07-28 21:47:29</title>
+</script><title>nivnavick - NIVNAVICK-PC 2014-07-28 21:47:29</title>
   </head>
   <body>
-    <div id="divToRefresh" class="wrapOverall">
-      <div id="floatingImageBackground" class="floatingImageBackground" style="visibility: hidden;">
-        <div class="floatingImageCloseButton" onclick="hide('floatingImageBackground');"></div><img src="" id="floatingImage"></div><br><div class="StatusBar statusBarFailed">
-        <div class="statusBarFailedInner">
-          <center>
-            <h1>
-              <div class="titleCenterd">nivnavick - NIVNAVICK-PC 2014-07-28 21:47:29</div>
-            </h1>
-          </center>
+    <div id="wrapper" class="wrapper">
+      <div class="titleBar failed">
+        <div>nivnavick - NIVNAVICK-PC 2014-07-28 21:47:29</div>
+      </div>
+      <div class="summaryWrapper">
+        <div>
+          <table class="info">
+            <caption>Summary</caption>
+            <thead>
+              <tr>
+                <th>Pie View</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div id="summaryGraph"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="centered"><a href="#" id="downloadButton" download="NivNavick@NIVNAVICK-PC 2014-07-28 21:47:29StatusesPie.png">Save graph</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="info">
+            <caption>Statuses</caption>
+            <tbody>
+              <tr>
+                <th>Total</th>
+                <td class="centered">20</td>
+              </tr>
+              <tr>
+                <th>Executed</th>
+                <td class="centered">20</td>
+              </tr>
+              <tr>
+                <th>Passed</th>
+                <td class="centered">7</td>
+              </tr>
+              <tr>
+                <th>Failed</th>
+                <td class="centered">13</td>
+              </tr>
+              <tr>
+                <th>Inconclusive</th>
+                <td class="centered">0</td>
+              </tr>
+              <tr>
+                <th>Error</th>
+                <td class="centered">0</td>
+              </tr>
+              <tr>
+                <th>Warning</th>
+                <td class="centered">1</td>
+              </tr>
+              <tr>
+                <th>Timeout</th>
+                <td class="centered">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="info">
+            <caption>Runtime/Context</caption>
+            <tbody>
+              <tr>
+                <th>Start Time</th>
+                <td class="nowrap">7/28/2014 2:47:32 PM</td>
+              </tr>
+              <tr>
+                <th>End Time</th>
+                <td class="nowrap">7/28/2014 2:47:42 PM</td>
+              </tr>
+              <tr>
+                <th>Duration</th>
+                <td class="nowrap">10.14 seconds</td>
+              </tr>
+              <tr>
+                <th>User</th>
+                <td class="nowrap">NivNavick-PC\NivNavick</td>
+              </tr>
+              <tr>
+                <th>Machine</th>
+                <td class="nowrap">NIVNAVICK-PC</td>
+              </tr>
+              <tr>
+                <th>Build</th>
+                <td class="nowrap">nivnavick</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td class="nowrap">
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="SummaryDiv">
-        <table class="summaryLayout">
-          <tr class="summaryLayout">
-            <td class="summaryLayout">
-              <table id="TotalTestsTable">
-                <caption>Results Summary</caption>
-                <thead>
-                  <tr class="odd">
-                    <th scope="col" abbr="Status">
-                          Pie View
-                        </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div id="dataViewer"></div>
-                    </td>
-                  </tr>
-                  <tr id="DownloadSection">
-                    <td><a href="#" class="button" id="btn-download" download="NivNavick@NIVNAVICK-PC 2014-07-28 21:47:29StatusesPie.png">Save graph</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td class="summaryLayout">
-              <table class="DetailsTable StatusesTable">
-                <caption>Statuses</caption>
-                <tbody>
-                  <tr class="odd">
-                    <th class="column1 statusCount">Total</th>
-                    <td class="statusCount">20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Executed</th>
-                    <td class="statusCount">20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Passed</th>
-                    <td class="statusCount">7</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Failed</th>
-                    <td class="statusCount">13</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Inconclusive</th>
-                    <td class="statusCount">0</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Error</th>
-                    <td class="statusCount">0</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Warning</th>
-                    <td class="statusCount">1</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="column1 statusCount">Timeout</th>
-                    <td class="statusCount">0</td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td class="summaryLayout">
-              <table class="summaryLayout">
-                <tr>
-                  <td class="summaryLayout">
-                    <table class="SummaryTable">
-                      <caption>Run Time Summary</caption>
-                      <tbody>
-                        <tr class="odd">
-                          <th class="column1">Start Time</th>
-                          <td>7/28/2014 2:47:32 PM</td>
-                        </tr>
-                        <tr>
-                          <th class="column1">End Time</th>
-                          <td>7/28/2014 2:47:42 PM</td>
-                        </tr>
-                        <tr>
-                          <th class="column1">Duration</th>
-                          <td>10.14 seconds</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                  <td class="summaryLayout">
-                    <table class="DetailsTable">
-                      <caption>Context</caption>
-                      <tbody>
-                        <tr class="odd">
-                          <th class="column1">User</th>
-                          <td>NivNavick-PC\NivNavick</td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="column1">Machine</th>
-                          <td>NIVNAVICK-PC</td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="column1">Description</th>
-                          <td>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                <tr class="summaryLayout">
-                  <td colspan="2" class="summaryLayout" style="vertical-align:top">
-                    <div class="storage">c:\users\nivnavick\desktop\prologwin\prolog\prologgertests\bin\release\prologgertests.dll</div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <table id="ReportsTable">
+      <table id="ReportsTable" class="info section">
         <caption>
               All Scenarios By Feature (3)
             </caption>
         <thead>
           <tr>
-            <th class="features" scope="col" abbr="Status">Status</th>
-            <th class="featuresLeft" scope="col" abbr="Feature">Feature</th>
+            <th class="section">Status</th>
+            <th class="section left">
+              <div style="float:left">Feature</div>
+              <div class="toggler" id="toggler" onclick="ToggleAll('TestsContainer','toggler','Expand','Collapse');">
+                    Collapse
+                  </div>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr class="Scenario">
-            <td class="PackageStatus"><canvas id="ID0AWC0ZCcanvas" width="100" height="25"></canvas></td>
-            <td class="scenario" style="text-align:left">ProLoggerTests.UnitTest2</td>
+          <tr>
+            <td class="statusGraph"><canvas id="ID0AWC0ZCcanvas" width="100" height="25"></canvas></td>
+            <td class="scenario" style="text-align:left">UnitTest2<div class="counts failed">4 of 8 passed
+        </div>
+            </td>
           </tr>
-          <tr id="ID0AWC0ZCTestsContainer">
+          <tr id="ID0AWC0ZCTestsContainer" class="visibleRow">
             <td colspan="2">
-              <div id="exceptionArrow">↳</div>
-              <table>
+              <div class="dropArrow">↳</div>
+              <table class="info">
                 <thead>
-                  <tr class="odd">
-                    <th scope="col" class="TestsTable" style="width:80px;">
+                  <tr>
+                    <th style="width:80px;">
                       <div style="width:80px;min-width:80px;display:block;">Status</div>
                     </th>
-                    <th scope="col" class="TestsTable" style="text-align:left">
+                    <th style="text-align:left">
                             Scenario (8)
                           </th>
-                    <th scope="col" class="TestsTable" style="width:100px;">
+                    <th style="width:100px;">
                       <div style="width:100px;min-width:100px;">Duration</div>
-                    </th>
-                    <th style="width:80px">
-                      <div style="width:80px;min-width:80px;">&nbsp;</div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">DeleteDirectory</td>
-                    <td>35.6762 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('b163a49a-4f7d-16db-1951-614f757c5cbcDetails','b163a49a-4f7d-16db-1951-614f757c5cbcDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="b163a49a-4f7d-16db-1951-614f757c5cbcDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'b163a49a-4f7d-16db-1951-614f757c5cbcDetails')"><span class="twister">⯈</span>DeleteDirectory</span></td>
+                    <td class="nowrap">35.6762 ms</td>
                   </tr>
-                  <tr id="b163a49a-4f7d-16db-1951-614f757c5cbcDetails" class="Messages hiddenRow">
+                  <tr id="b163a49a-4f7d-16db-1951-614f757c5cbcDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Delete directory </div><br><div class="stacktrace visibleRow" id="ID0AOC0RCStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Delete directory <br></div>
+                      <div class="stacktrace visibleRow" id="ID0AOC0RCStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest2.DeleteDirectory() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 172
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">MixedStatuses</td>
-                    <td>57.2982 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('61806122-dba6-f45a-9132-1c39b4d5999bDetails','61806122-dba6-f45a-9132-1c39b4d5999bDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="61806122-dba6-f45a-9132-1c39b4d5999bDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '61806122-dba6-f45a-9132-1c39b4d5999bDetails')"><span class="twister">⯈</span>MixedStatuses</span></td>
+                    <td class="nowrap">57.2982 ms</td>
                   </tr>
-                  <tr id="61806122-dba6-f45a-9132-1c39b4d5999bDetails" class="Messages hiddenRow">
+                  <tr id="61806122-dba6-f45a-9132-1c39b4d5999bDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Dll throws exception </div><br><div class="stacktrace visibleRow" id="ID0AMD0PDStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Dll throws exception <br></div>
+                      <div class="stacktrace visibleRow" id="ID0AMD0PDStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest2.MixedStatuses() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 80
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">FailedTests</td>
-                    <td>26.6534 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('032cb730-2395-a2cb-bb34-0e8888c66ffbDetails','032cb730-2395-a2cb-bb34-0e8888c66ffbDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="032cb730-2395-a2cb-bb34-0e8888c66ffbDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '032cb730-2395-a2cb-bb34-0e8888c66ffbDetails')"><span class="twister">⯈</span>FailedTests</span></td>
+                    <td class="nowrap">26.6534 ms</td>
                   </tr>
-                  <tr id="032cb730-2395-a2cb-bb34-0e8888c66ffbDetails" class="Messages hiddenRow">
+                  <tr id="032cb730-2395-a2cb-bb34-0e8888c66ffbDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. jijijijij;</div><br><div class="stacktrace visibleRow" id="ID0AKE0NEStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. jijijijij;<br></div>
+                      <div class="stacktrace visibleRow" id="ID0AKE0NEStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 126
    at ProLoggerTests.UnitTest2.FailedTests() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 122
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">InvalidCasting</td>
-                    <td>38.3064 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetails','149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetails')"><span class="twister">⯈</span>InvalidCasting</span></td>
+                    <td class="nowrap">38.3064 ms</td>
                   </tr>
-                  <tr id="149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetails" class="Messages hiddenRow">
+                  <tr id="149e145c-a0f7-1f90-a8ec-3c81bf4de94dDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Parsing vars</div><br><div class="stacktrace visibleRow" id="ID0ASAAC0VAACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Parsing vars<br></div>
+                      <div class="stacktrace visibleRow" id="ID0ASAAC0VAACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest2.InvalidCasting() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 105
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">ExternalDllException</td>
-                    <td>35.5994 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('b5d1a81b-862a-ded2-c1d5-aa79158c5616Details','b5d1a81b-862a-ded2-c1d5-aa79158c5616DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="b5d1a81b-862a-ded2-c1d5-aa79158c5616DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'b5d1a81b-862a-ded2-c1d5-aa79158c5616Details')"><span class="twister">⯈</span>ExternalDllException</span></td>
+                    <td class="nowrap">35.5994 ms</td>
                   </tr>
-                  <tr id="b5d1a81b-862a-ded2-c1d5-aa79158c5616Details" class="Messages hiddenRow">
+                  <tr id="b5d1a81b-862a-ded2-c1d5-aa79158c5616Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Dll throws exception </div><br><div class="stacktrace visibleRow" id="ID0ABBAC0EBACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Dll throws exception <br></div>
+                      <div class="stacktrace visibleRow" id="ID0ABBAC0EBACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest2.ExternalDllException() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 143
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">PassedTests</td>
-                    <td>0.2252 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('6901c10d-81e8-b445-fa0b-4097995a00a8Details','6901c10d-81e8-b445-fa0b-4097995a00a8DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="6901c10d-81e8-b445-fa0b-4097995a00a8DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '6901c10d-81e8-b445-fa0b-4097995a00a8Details')"><span class="twister">⯈</span>PassedTests</span></td>
+                    <td class="nowrap">0.2252 ms</td>
                   </tr>
-                  <tr id="6901c10d-81e8-b445-fa0b-4097995a00a8Details" class="Messages hiddenRow">
+                  <tr id="6901c10d-81e8-b445-fa0b-4097995a00a8Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">P</br>
+                    <td class="Test messages" colspan="2">P</br>
 <br></td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">FileNotFound</td>
-                    <td>38.971 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('398cb8d0-71b4-00f9-acea-bd8e48815244Details','398cb8d0-71b4-00f9-acea-bd8e48815244DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="398cb8d0-71b4-00f9-acea-bd8e48815244DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '398cb8d0-71b4-00f9-acea-bd8e48815244Details')"><span class="twister">⯈</span>FileNotFound</span></td>
+                    <td class="nowrap">38.971 ms</td>
                   </tr>
-                  <tr id="398cb8d0-71b4-00f9-acea-bd8e48815244Details" class="Messages hiddenRow">
+                  <tr id="398cb8d0-71b4-00f9-acea-bd8e48815244Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Read file lines </div><br><div class="stacktrace visibleRow" id="ID0A4CAC0ADACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Read file lines <br></div>
+                      <div class="stacktrace visibleRow" id="ID0A4CAC0ADACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest2.FileNotFound() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\UnitTest2.cs:line 158
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">InfoTests</td>
-                    <td>0.2237 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetails','f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetails')"><span class="twister">⯈</span>InfoTests</span></td>
+                    <td class="nowrap">0.2237 ms</td>
                   </tr>
-                  <tr id="f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetails" class="Messages hiddenRow">
+                  <tr id="f023d3af-3d19-0d05-ad09-fbfb0ef6d43bDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">Info Tests</br>
+                    <td class="Test messages" colspan="2">Info Tests</br>
 <br></td>
                   </tr>
                 </tbody>
@@ -1357,344 +946,239 @@ function ClosePictureBox() {
                   CalculateTestsStatuses(
                   'ID0AWC0ZCTestsContainer',
                   'ID0AWC0ZCcanvas');
-                </script><tr class="Scenario">
-            <td class="PackageStatus"><canvas id="ID0AFD0IDcanvas" width="100" height="25"></canvas></td>
-            <td class="scenario" style="text-align:left">ProLoggerTests.UnitTest1</td>
+                </script><tr>
+            <td class="statusGraph"><canvas id="ID0AFD0IDcanvas" width="100" height="25"></canvas></td>
+            <td class="scenario" style="text-align:left">UnitTest1<div class="counts failed">5 of 11 passed
+        </div>
+            </td>
           </tr>
-          <tr id="ID0AFD0IDTestsContainer">
+          <tr id="ID0AFD0IDTestsContainer" class="visibleRow">
             <td colspan="2">
-              <div id="exceptionArrow">↳</div>
-              <table>
+              <div class="dropArrow">↳</div>
+              <table class="info">
                 <thead>
-                  <tr class="odd">
-                    <th scope="col" class="TestsTable" style="width:80px;">
+                  <tr>
+                    <th style="width:80px;">
                       <div style="width:80px;min-width:80px;display:block;">Status</div>
                     </th>
-                    <th scope="col" class="TestsTable" style="text-align:left">
+                    <th style="text-align:left">
                             Scenario (11)
                           </th>
-                    <th scope="col" class="TestsTable" style="width:100px;">
+                    <th style="width:100px;">
                       <div style="width:100px;min-width:100px;">Duration</div>
-                    </th>
-                    <th style="width:80px">
-                      <div style="width:80px;min-width:80px;">&nbsp;</div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">FailedTests</td>
-                    <td>26.2017 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('0718bc33-9991-fdc4-06f4-2535e017419dDetails','0718bc33-9991-fdc4-06f4-2535e017419dDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="0718bc33-9991-fdc4-06f4-2535e017419dDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '0718bc33-9991-fdc4-06f4-2535e017419dDetails')"><span class="twister">⯈</span>FailedTests</span></td>
+                    <td class="nowrap">26.2017 ms</td>
                   </tr>
-                  <tr id="0718bc33-9991-fdc4-06f4-2535e017419dDetails" class="Messages hiddenRow">
+                  <tr id="0718bc33-9991-fdc4-06f4-2535e017419dDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. jijijijijbhbhghbh;</div><br><div class="stacktrace visibleRow" id="ID0A4C0ADStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. jijijijijbhbhghbh;<br></div>
+                      <div class="stacktrace visibleRow" id="ID0A4C0ADStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 126
    at ProLoggerTests.UnitTest1.FailedTests() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 123
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">CombineAll</td>
-                    <td>39.8057 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('f476a9b7-f1bc-a53d-8141-2f34a9c94ab3Details','f476a9b7-f1bc-a53d-8141-2f34a9c94ab3DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="f476a9b7-f1bc-a53d-8141-2f34a9c94ab3DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'f476a9b7-f1bc-a53d-8141-2f34a9c94ab3Details')"><span class="twister">⯈</span>CombineAll</span></td>
+                    <td class="nowrap">39.8057 ms</td>
                   </tr>
-                  <tr id="f476a9b7-f1bc-a53d-8141-2f34a9c94ab3Details" class="Messages hiddenRow">
+                  <tr id="f476a9b7-f1bc-a53d-8141-2f34a9c94ab3Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">Tests passes</br>
+                    <td class="Test messages" colspan="2">Tests passes</br>
 Tests got warn</br>
 Info about the test</br>
-<br><div class="exMessage">Assert.Fail failed. Dll throws exception </div><br><div class="stacktrace visibleRow" id="ID0A2D05DStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+<br><div class="errorMessage">Assert.Fail failed. Dll throws exception <br></div>
+                      <div class="stacktrace visibleRow" id="ID0A2D05DStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.CombineAll() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 200
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">FileNotFound</td>
-                    <td>88.4997 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetails','e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetails')"><span class="twister">⯈</span>FileNotFound</span></td>
+                    <td class="nowrap">88.4997 ms</td>
                   </tr>
-                  <tr id="e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetails" class="Messages hiddenRow">
+                  <tr id="e579fdbe-8eba-891e-16cc-7a6f7afaa47fDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Read file lines failed </div><br><div class="stacktrace visibleRow" id="ID0AZE03EStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Read file lines failed <br></div>
+                      <div class="stacktrace visibleRow" id="ID0AZE03EStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.FileNotFound() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 165
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">InvalidCasting</td>
-                    <td>134.028 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('05b13c37-a5b9-9c0c-bcf3-85a311381659Details','05b13c37-a5b9-9c0c-bcf3-85a311381659DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="05b13c37-a5b9-9c0c-bcf3-85a311381659DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '05b13c37-a5b9-9c0c-bcf3-85a311381659Details')"><span class="twister">⯈</span>InvalidCasting</span></td>
+                    <td class="nowrap">134.028 ms</td>
                   </tr>
-                  <tr id="05b13c37-a5b9-9c0c-bcf3-85a311381659Details" class="Messages hiddenRow">
+                  <tr id="05b13c37-a5b9-9c0c-bcf3-85a311381659Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Parsing vars</div><br><div class="stacktrace visibleRow" id="ID0AIF0LFStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Parsing vars<br></div>
+                      <div class="stacktrace visibleRow" id="ID0AIF0LFStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.InvalidCasting() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 105
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="warn top">
-          Warn
+                  <tr class="feature">
+                    <td class="warn centered">
+          WARN
         </td>
-                    <td class="Function">EditedException</td>
-                    <td>0.8713 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('d21015bb-9244-ed1d-ec9e-153dec9d99adDetails','d21015bb-9244-ed1d-ec9e-153dec9d99adDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="d21015bb-9244-ed1d-ec9e-153dec9d99adDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'd21015bb-9244-ed1d-ec9e-153dec9d99adDetails')"><span class="twister">⯈</span>EditedException</span></td>
+                    <td class="nowrap">0.8713 ms</td>
                   </tr>
-                  <tr id="d21015bb-9244-ed1d-ec9e-153dec9d99adDetails" class="Messages hiddenRow">
+                  <tr id="d21015bb-9244-ed1d-ec9e-153dec9d99adDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">Custom exception test</br>
+                    <td class="Test messages" colspan="2">Custom exception test</br>
 <br></td>
                   </tr>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">WarnTest</td>
-                    <td>0.3147 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('5e3cd15a-aba7-333e-80af-38c992a98a19Details','5e3cd15a-aba7-333e-80af-38c992a98a19DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="5e3cd15a-aba7-333e-80af-38c992a98a19DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '5e3cd15a-aba7-333e-80af-38c992a98a19Details')"><span class="twister">⯈</span>WarnTest</span></td>
+                    <td class="nowrap">0.3147 ms</td>
                   </tr>
-                  <tr id="5e3cd15a-aba7-333e-80af-38c992a98a19Details" class="Messages hiddenRow">
+                  <tr id="5e3cd15a-aba7-333e-80af-38c992a98a19Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></td>
+                    <td class="Test messages" colspan="2"></td>
                   </tr>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">PassedTests</td>
-                    <td>0.8358 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('e1750fc9-865e-47ec-14b0-0fa51b026207Details','e1750fc9-865e-47ec-14b0-0fa51b026207DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="e1750fc9-865e-47ec-14b0-0fa51b026207DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, 'e1750fc9-865e-47ec-14b0-0fa51b026207Details')"><span class="twister">⯈</span>PassedTests</span></td>
+                    <td class="nowrap">0.8358 ms</td>
                   </tr>
-                  <tr id="e1750fc9-865e-47ec-14b0-0fa51b026207Details" class="Messages hiddenRow">
+                  <tr id="e1750fc9-865e-47ec-14b0-0fa51b026207Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">P </br>
+                    <td class="Test messages" colspan="2">P </br>
 A </br>
 message</br>
 <br></td>
                   </tr>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">InfoTests</td>
-                    <td>0.6356 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('18575743-c262-c8ff-3eec-19d77b980e8cDetails','18575743-c262-c8ff-3eec-19d77b980e8cDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="18575743-c262-c8ff-3eec-19d77b980e8cDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '18575743-c262-c8ff-3eec-19d77b980e8cDetails')"><span class="twister">⯈</span>InfoTests</span></td>
+                    <td class="nowrap">0.6356 ms</td>
                   </tr>
-                  <tr id="18575743-c262-c8ff-3eec-19d77b980e8cDetails" class="Messages hiddenRow">
+                  <tr id="18575743-c262-c8ff-3eec-19d77b980e8cDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3">niv</br>
+                    <td class="Test messages" colspan="2">niv</br>
 <br></td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">ExternalDllException</td>
-                    <td>39.7799 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('807c49a5-5da5-6080-a629-cfb6753fa8fbDetails','807c49a5-5da5-6080-a629-cfb6753fa8fbDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="807c49a5-5da5-6080-a629-cfb6753fa8fbDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '807c49a5-5da5-6080-a629-cfb6753fa8fbDetails')"><span class="twister">⯈</span>ExternalDllException</span></td>
+                    <td class="nowrap">39.7799 ms</td>
                   </tr>
-                  <tr id="807c49a5-5da5-6080-a629-cfb6753fa8fbDetails" class="Messages hiddenRow">
+                  <tr id="807c49a5-5da5-6080-a629-cfb6753fa8fbDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Dll throws exception </div><br><div class="stacktrace visibleRow" id="ID0ADAAC0GAACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Dll throws exception <br></div>
+                      <div class="stacktrace visibleRow" id="ID0ADAAC0GAACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.ExternalDllException() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 151
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">MixedStatuses</td>
-                    <td>138.6413 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('0c144b31-5a9c-3f6c-3361-d370de09efe3Details','0c144b31-5a9c-3f6c-3361-d370de09efe3DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="0c144b31-5a9c-3f6c-3361-d370de09efe3DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '0c144b31-5a9c-3f6c-3361-d370de09efe3Details')"><span class="twister">⯈</span>MixedStatuses</span></td>
+                    <td class="nowrap">138.6413 ms</td>
                   </tr>
-                  <tr id="0c144b31-5a9c-3f6c-3361-d370de09efe3Details" class="Messages hiddenRow">
+                  <tr id="0c144b31-5a9c-3f6c-3361-d370de09efe3Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Dll throws exception </div><br><div class="stacktrace visibleRow" id="ID0AQBAC0TBACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Dll throws exception <br></div>
+                      <div class="stacktrace visibleRow" id="ID0AQBAC0TBACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.MixedStatuses() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 74
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
-                  <tr class="Test">
-                    <td class="failed top">
+                  <tr class="feature">
+                    <td class="failed centered">
           FAILED
         </td>
-                    <td class="Function">DeleteDirectory</td>
-                    <td>36.274 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('81203687-7634-de36-0435-3479fc4da8daDetails','81203687-7634-de36-0435-3479fc4da8daDetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="81203687-7634-de36-0435-3479fc4da8daDetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '81203687-7634-de36-0435-3479fc4da8daDetails')"><span class="twister">⯈</span>DeleteDirectory</span></td>
+                    <td class="nowrap">36.274 ms</td>
                   </tr>
-                  <tr id="81203687-7634-de36-0435-3479fc4da8daDetails" class="Messages hiddenRow">
+                  <tr id="81203687-7634-de36-0435-3479fc4da8daDetails" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></br>
-<div class="exMessage">Assert.Fail failed. Delete directory </div><br><div class="stacktrace visibleRow" id="ID0AOCAC0RCACStacktrace">
-                        <div id="exceptionArrow">↳</div>
-                        <table>
-                          <tbody>
-                            <tr class="visibleRow">
-                              <td class="ex">
-                                <div class="exScroller">
-                                  <pre class="exMessage">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
+                    <td class="Test messages" colspan="2">
+                      <div class="errorMessage">Assert.Fail failed. Delete directory <br></div>
+                      <div class="stacktrace visibleRow" id="ID0AOCAC0RCACStacktrace">
+                        <div class="dropArrow">↳</div>
+                        <div class="exceptionScroller">
+                          <pre class="exception">  at ProLog.Utils.Reporters.SetAssert(TestStatus reportStatus, String message, Boolean useAsserts, Boolean iterate) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 37
    at ProLog.Utils.Reporters.AddLogRow(TestStatus reportStatus, String function, String message, String exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 86
    at ProLog.Utils.Reporters.ReportLog(TestStatus reportStatus, String function, String message, Exception exception) in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLog\Utils\Reporters.cs:line 114
    at ProLoggerTests.UnitTest1.DeleteDirectory() in C:\Users\NivNavick\Desktop\ProLogWin\ProLog\ProLoggerTests\Tests\UnitTest1.cs:line 179
 </pre>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -1705,46 +1189,40 @@ message</br>
                   CalculateTestsStatuses(
                   'ID0AFD0IDTestsContainer',
                   'ID0AFD0IDcanvas');
-                </script><tr class="Scenario">
-            <td class="PackageStatus"><canvas id="ID0A2H05Hcanvas" width="100" height="25"></canvas></td>
-            <td class="scenario" style="text-align:left">ProLoggerTests.Tests.PassedReportsTests</td>
+                </script><tr>
+            <td class="statusGraph"><canvas id="ID0A2H05Hcanvas" width="100" height="25"></canvas></td>
+            <td class="scenario" style="text-align:left">PassedReportsTests<div class="counts passed">1 of 1 passed
+        </div>
+            </td>
           </tr>
-          <tr id="ID0A2H05HTestsContainer">
+          <tr id="ID0A2H05HTestsContainer" class="visibleRow">
             <td colspan="2">
-              <div id="exceptionArrow">↳</div>
-              <table>
+              <div class="dropArrow">↳</div>
+              <table class="info">
                 <thead>
-                  <tr class="odd">
-                    <th scope="col" class="TestsTable" style="width:80px;">
+                  <tr>
+                    <th style="width:80px;">
                       <div style="width:80px;min-width:80px;display:block;">Status</div>
                     </th>
-                    <th scope="col" class="TestsTable" style="text-align:left">
+                    <th style="text-align:left">
                             Scenario (1)
                           </th>
-                    <th scope="col" class="TestsTable" style="width:100px;">
+                    <th style="width:100px;">
                       <div style="width:100px;min-width:100px;">Duration</div>
-                    </th>
-                    <th style="width:80px">
-                      <div style="width:80px;min-width:80px;">&nbsp;</div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="Test">
-                    <td class="passed top">
+                  <tr class="feature">
+                    <td class="passed centered">
           PASSED
         </td>
-                    <td class="Function">TestMethod1</td>
-                    <td>0.2406 ms</td>
-                    <td>
-                      <div class="OpenMoreButton" onclick="ShowHide('82c8f51e-8162-f67a-d72c-a8cc348fbdb4Details','82c8f51e-8162-f67a-d72c-a8cc348fbdb4DetailsButton','Show Gherkin','Hide Gherkin');">
-                        <div class="MoreButtonText" id="82c8f51e-8162-f67a-d72c-a8cc348fbdb4DetailsButton">Show Gherkin</div>
-                      </div>
-                    </td>
+                    <td class="left"><span class="featureHead" onclick="ToggleOutput(this, '82c8f51e-8162-f67a-d72c-a8cc348fbdb4Details')"><span class="twister">⯈</span>TestMethod1</span></td>
+                    <td class="nowrap">0.2406 ms</td>
                   </tr>
-                  <tr id="82c8f51e-8162-f67a-d72c-a8cc348fbdb4Details" class="Messages hiddenRow">
+                  <tr id="82c8f51e-8162-f67a-d72c-a8cc348fbdb4Details" class="messages hiddenRow">
                     <td>&nbsp;</td>
-                    <td class="Test Messages" colspan="3"></td>
+                    <td class="Test messages" colspan="2"></td>
                   </tr>
                 </tbody>
               </table>
@@ -1755,73 +1233,56 @@ message</br>
                   'ID0A2H05Hcanvas');
                 </script></tbody>
       </table>
-      <Table>
-        <caption>Five slowest features</caption>
+      <table class="info section">
+        <caption>Five slowest scenarios</caption>
         <thead>
-          <tr class="odd">
-            <th class="features" scope="col">Status</th>
-            <th class="featuresLeft" scope="col" abbr="Feature">Feature</th>
-            <th class="features" scope="col" abbr="Duration">Duration</th>
+          <tr>
+            <th class="section">Status</th>
+            <th class="section left">Scenario</th>
+            <th class="section">Duration</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="failed top">
+            <td class="failed centered">
           FAILED
         </td>
-            <td class="Function slowest">ProLoggerTests.UnitTest1
-                      .MixedStatuses</td>
-            <td class="Message slowest">
-              <div style="white-space: nowrap">138.6413 ms</div>
-            </td>
+            <td>UnitTest1.MixedStatuses</td>
+            <td class="nowrap">138.6413 ms</td>
           </tr>
           <tr>
-            <td class="failed top">
+            <td class="failed centered">
           FAILED
         </td>
-            <td class="Function slowest">ProLoggerTests.UnitTest1
-                      .InvalidCasting</td>
-            <td class="Message slowest">
-              <div style="white-space: nowrap">134.028 ms</div>
-            </td>
+            <td>UnitTest1.InvalidCasting</td>
+            <td class="nowrap">134.028 ms</td>
           </tr>
           <tr>
-            <td class="failed top">
+            <td class="failed centered">
           FAILED
         </td>
-            <td class="Function slowest">ProLoggerTests.UnitTest1
-                      .FileNotFound</td>
-            <td class="Message slowest">
-              <div style="white-space: nowrap">88.4997 ms</div>
-            </td>
+            <td>UnitTest1.FileNotFound</td>
+            <td class="nowrap">88.4997 ms</td>
           </tr>
           <tr>
-            <td class="failed top">
+            <td class="failed centered">
           FAILED
         </td>
-            <td class="Function slowest">ProLoggerTests.UnitTest2
-                      .MixedStatuses</td>
-            <td class="Message slowest">
-              <div style="white-space: nowrap">57.2982 ms</div>
-            </td>
+            <td>UnitTest2.MixedStatuses</td>
+            <td class="nowrap">57.2982 ms</td>
           </tr>
           <tr>
-            <td class="failed top">
+            <td class="failed centered">
           FAILED
         </td>
-            <td class="Function slowest">ProLoggerTests.UnitTest1
-                      .CombineAll</td>
-            <td class="Message slowest">
-              <div style="white-space: nowrap">39.8057 ms</div>
-            </td>
+            <td>UnitTest1.CombineAll</td>
+            <td class="nowrap">39.8057 ms</td>
           </tr>
         </tbody>
-      </Table>
-      <h6 style="text-align:center">
+      </table><footer>
             © 2019, Internal Use Only
-          </h6>
-    </div>
-    <div id="pictureBox" class="pictureBox" onclick="ClosePictureBox()"><img class="pictureBoxImg" id="pictureBoxImg"></div>
+          </footer></div>
+    <div id="pictureBox" class="pictureBox" onclick="ClosePictureBox()"><img id="pictureBoxImg"></div>
   </body><script>
         CalculateTotalPrecents();
       </script></html>
