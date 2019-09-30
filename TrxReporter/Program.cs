@@ -41,6 +41,7 @@
 
 			if (parameters.HasErrors)
 			{
+				Console.WriteLine(parameters.ErrorText);
 				return;
 			}
 
