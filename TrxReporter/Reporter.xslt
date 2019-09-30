@@ -4,6 +4,9 @@
     xmlns:t="http://microsoft.com/schemas/VisualStudio/TeamTest/2010"
     xmlns:trxreport="urn:my-scripts"
     xmlns:pens="urn:Pens">
+
+  <xsl:param name="ReportTitle"></xsl:param>
+
   <xsl:output method="html" indent="yes"/>
   <xsl:key name="TestMethods" match="t:TestMethod" use="@className"/>
 
@@ -15,14 +18,14 @@
     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
     <xsl:variable name="testRunName" select="/t:TestRun/@name" />
     <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
-    <xsl:variable name="reportTitle" select="pens:MakeCustomName($testRunName,$storage)" />
+    <xsl:variable name="reportSubtitle" select="pens:MakeCustomName($testRunName,$storage)" />
     <html>
       <head>
         <meta charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="Reporter.css"/>
         <script language="javascript" type="text/javascript" src="Reporter.js"></script>
         <title>
-          <xsl:value-of select="$reportTitle"/>
+          <xsl:value-of select="$reportSubtitle"/>
         </title>
       </head>
       <body>
@@ -31,7 +34,8 @@
           <!-- Title - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <xsl:call-template name="BuildTitleBar">
-            <xsl:with-param name="title" select="$reportTitle"/>
+            <xsl:with-param name="title" select="$ReportTitle"/>
+            <xsl:with-param name="subtitle" select="$reportSubtitle"/>
             <xsl:with-param name="countersExecuted" select="/t:TestRun/t:ResultSummary/t:Counters/@executed"/>
             <xsl:with-param name="countersPassed" select="/t:TestRun/t:ResultSummary/t:Counters/@passed"/>
             <xsl:with-param name="countersFailed" select="/t:TestRun/t:ResultSummary/t:Counters/@failed"/>
@@ -302,6 +306,7 @@
 
   <xsl:template name="BuildTitleBar">
     <xsl:param name="title" />
+    <xsl:param name="subtitle" />
     <xsl:param name="countersExecuted" />
     <xsl:param name="countersPassed" />
     <xsl:param name="countersFailed" />
@@ -315,6 +320,10 @@
     <div class="titleBar {$status}">
       <div>
         <xsl:value-of select="$title"/>
+        <br />
+        <span class="subtitle">
+          <xsl:value-of select="$subtitle"/>
+        </span>
       </div>
     </div>
   </xsl:template>
@@ -368,7 +377,6 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
 
   <!-- BuildStatusColumn ====================================================================== -->
 
@@ -457,4 +465,3 @@
   </xsl:template>
 
 </xsl:stylesheet>
-

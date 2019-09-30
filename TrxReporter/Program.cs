@@ -1,6 +1,7 @@
 ﻿namespace TrxReporter
 {
-	using System;
+    using Fclp;
+    using System;
 	using System.IO;
 	using System.Linq;
 	using System.Xml;
@@ -16,15 +17,41 @@
 
 		static void Main(string[] args)
 		{
-			if (!args.Any())
+			string trxPath = null;
+			string outPath = null;
+			string title = null;
+
+			var p = new FluentCommandLineParser();
+
+			p.Setup<string>('i', "input")
+				.Callback(v => trxPath = v)
+				.Required()
+				.WithDescription("Path to the .trx file");
+
+			p.Setup<string>('o', "output")
+				.Callback(v => outPath = v)
+				.WithDescription("Optional path of output HTML file");
+
+			p.Setup<string>('t', "title")
+				.Callback(v => title = v)
+				.SetDefault("Test Report")
+				.WithDescription("Optional title of report");
+
+			var parameters = p.Parse(args);
+
+			if (parameters.HasErrors)
 			{
-				Console.WriteLine("Usage: dotnet .\\TrxReporter.dll <trx-path> <output-path>");
 				return;
 			}
 
-			var trxPath = args[0];
-			string outPath;
-			if (args.Length > 1)
+			if (String.IsNullOrEmpty(outPath))
+			{
+				outPath = Path.Combine(
+					Path.GetDirectoryName(Path.GetFullPath(trxPath)),
+					Path.GetFileName(trxPath) + HTMLExt
+					);
+			}
+			else
 			{
 				if (args[1].EndsWith(HTMLExt, StringComparison.InvariantCultureIgnoreCase))
 				{
@@ -35,27 +62,22 @@
 					outPath = Path.Combine(args[1], Path.GetFileName(trxPath) + HTMLExt);
 				}
 			}
-			else
-			{
-				outPath = Path.Combine(
-					Path.GetDirectoryName(Path.GetFullPath(trxPath)),
-					Path.GetFileName(trxPath) + HTMLExt
-					);
-			}
 
 			Console.WriteLine($"... transforming {trxPath}");
 
-			Transform(trxPath, outPath, PrepareXsl());
+			Transform(trxPath, outPath, title, PrepareXsl());
 		}
 
 
-		private static void Transform(string fileName, string outPath, XmlDocument xsl)
+		private static void Transform(string fileName, string outPath, string title, XmlDocument xsl)
 		{
 			var compiled = new XslCompiledTransform(true);
 			compiled.Load(xsl, new XsltSettings(true, true), null);
 
 			var args = new XsltArgumentList();
 			args.AddExtensionObject("urn:Pens", new Pens());
+
+			args.AddParam("ReportTitle", String.Empty, title);
 
 			Console.WriteLine("... transforming");
 			using (var writer = new StreamWriter(outPath))

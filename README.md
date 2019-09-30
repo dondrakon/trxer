@@ -11,6 +11,18 @@
   <li>Custom title shows Bamboo build directory</li>
 </ul>
 
+<h2>Usage</h2>
+
+PS> <b>dotnet .\TrxReporter.dll --input &lt;path-to-trx&gt; [--output &lt;output-path&gt;] [--title &lt;title&gt;]</b>
+
+<ul>
+--input path can be absolute or relative
+
+
+--output path can be a directory or file, absolute or relative. If no filename is specified then the .trx filename is used.
+
+--title of the report, default is "Testing Report"
+</u>
 
 <h3>Original Trxer</h3>
 <p>TrxerConsole: https://github.com/NivNavick/trxer/tree/master/TrxerConsole</p>
