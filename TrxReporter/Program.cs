@@ -54,13 +54,9 @@
 			}
 			else
 			{
-				if (args[1].EndsWith(HTMLExt, StringComparison.InvariantCultureIgnoreCase))
+				if (!outPath.EndsWith(HTMLExt, StringComparison.InvariantCultureIgnoreCase))
 				{
-					outPath = args[1];
-				}
-				else
-				{
-					outPath = Path.Combine(args[1], Path.GetFileName(trxPath) + HTMLExt);
+					outPath = Path.Combine(outPath, Path.GetFileName(trxPath) + HTMLExt);
 				}
 			}
 

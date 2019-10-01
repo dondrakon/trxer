@@ -53,9 +53,9 @@ a:focus {
 /* TitleBar  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 .titleBar {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 100%;
-    height: 60px;
+    height: 75px;
 }
 
     .titleBar.passed {
@@ -86,16 +86,23 @@ a:focus {
         position: relative;
         top: 8px;
         width: 100%;
-        height: 44px;
-        line-height: 40px;
+        height: 55px;
         display: inline-block;
         text-align: center;
-        vertical-align: middle;
+        vertical-align: top;
+        padding-top: 5px;
         color: white;
         font-size: 25px;
         font-weight: bold;
+        line-height: 25px;
         text-shadow: 1px 1px 1px #194c19;
     }
+
+        .titleBar > div > span.subtitle {
+            font-size: 16px;
+            margin-top: 4px;
+            margin-bottom: 2px;
+        }
 
 /* Summary - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -638,7 +645,7 @@ function CreateHorizontalBars(id, totalPass, totalFailed, totalWarn) {
   <body>
     <div id="wrapper" class="wrapper">
       <div class="titleBar failed">
-        <div>nivnavick - NIVNAVICK-PC 2014-07-28 21:47:29</div>
+        <div>Test Report<br><span class="subtitle">nivnavick - NIVNAVICK-PC 2014-07-28 21:47:29</span></div>
       </div>
       <div class="summaryWrapper">
         <div>
