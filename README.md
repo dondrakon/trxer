@@ -15,7 +15,7 @@
 
 <ul>
   <li>Bamboo branch name along with build number</li>
-  <li>Branch name is hyperlinked to reults URL page</li>
+  <li>Branch name is hyperlinked to results URL page</li>
 </ul>
 
 <h2>Usage</h2>
