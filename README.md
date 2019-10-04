@@ -13,7 +13,7 @@
 
 <p>If appropriate Bamboo environment variables are available then the report includes:</p>
 
-<li>
+<ul>
   <li>Bamboo branch name along with build number</li>
   <li>Branch name is hyperlinked to reults URL page</li>
 </ul>
