@@ -241,6 +241,7 @@
                       </thead>
                       <tbody>
                         <xsl:for-each select="$scenarios">
+                          <xsl:sort select="./../@name" order="ascending"/>
                           <xsl:call-template name="BuildScenarioRow">
                             <xsl:with-param name="scenarioId" select="./../@id" />
                             <!--xsl:with-param name="testDescription" select="./../t:Description" /-->
@@ -417,6 +418,11 @@
       <xsl:when test="$outcome='Warn'">
         <td class="warn centered">
           WARN
+        </td>
+      </xsl:when>
+      <xsl:when test="$outcome='NotExecuted'">
+        <td class="warn centered">
+          Skipped
         </td>
       </xsl:when>
       <xsl:otherwise>
