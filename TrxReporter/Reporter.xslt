@@ -18,7 +18,7 @@
     <xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
     <xsl:variable name="testRunName" select="/t:TestRun/@name" />
     <xsl:variable name="storage" select="/t:TestRun/t:TestDefinitions/t:UnitTest/@storage" />
-    <xsl:variable name="reportSubtitle" select="pens:MakeCustomName($testRunName,$storage)" />
+    <xsl:variable name="reportSubtitle" select="pens:GetReportSubtitle($testRunName,$storage)" />
     <html>
       <head>
         <meta charset="utf-8"/>
@@ -143,12 +143,12 @@
                       </td>
                     </tr>
                   </xsl:for-each>
-                  <tr>
+                  <!--tr>
                     <th>User</th>
                     <td class="nowrap">
                       <xsl:value-of select="/t:TestRun/@runUser" />
                     </td>
-                  </tr>
+                  </tr-->
                   <tr>
                     <th>Machine</th>
                     <td class="nowrap">
@@ -158,7 +158,13 @@
                   <tr>
                     <th>Build</th>
                     <td class="nowrap">
-                      <xsl:value-of select="pens:GetBuildName($storage)" />
+                      <xsl:value-of select="pens:GetBuildName($storage)" disable-output-escaping="yes" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Branch</th>
+                    <td class="nowrap">
+                      <xsl:value-of select="pens:GetBranchName()" />
                     </td>
                   </tr>
                   <tr>

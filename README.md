@@ -11,6 +11,13 @@
   <li>Custom title shows Bamboo build directory</li>
 </ul>
 
+<p>If appropriate Bamboo environment variables are available then the report includes:</p>
+
+<li>
+  <li>Bamboo branch name along with build number</li>
+  <li>Branch name is hyperlinked to reults URL page</li>
+</ul>
+
 <h2>Usage</h2>
 
 PS> <b>dotnet .\TrxReporter.dll --input &lt;path-to-trx&gt; [--output &lt;output-path&gt;] [--title &lt;title&gt;]</b>

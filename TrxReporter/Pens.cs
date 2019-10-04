@@ -47,6 +47,16 @@ namespace TrxReporter
 
 
 		/// <summary>
+		/// Get the current Bamboo branch name.
+		/// </summary>
+		/// <returns></returns>
+		public string GetBranchName ()
+		{
+			return Environment.GetEnvironmentVariable("bamboo_planRepository_branchName") ?? String.Empty;
+		}
+
+
+		/// <summary>
 		/// Extract the build folder name from the storage location. This is a custom
 		/// implementation for Bamboo build paths of the form C:\builds\build-name\....
 		/// </summary>
@@ -58,13 +68,30 @@ namespace TrxReporter
 		/// </returns>
 		public string GetBuildName(string storage)
 		{
+			string name = string.Empty;
+
 			var parts = storage.Split(System.IO.Path.DirectorySeparatorChar);
 			if (parts.Length > 1)
 			{
-				return parts[2].Trim();
+				name = parts[2].Trim();
+
+				if (!string.IsNullOrEmpty(name))
+				{
+					var url = Environment.GetEnvironmentVariable("bamboo_resultsUrl");
+					if (!string.IsNullOrEmpty(url))
+					{
+						name = $"<a href='{url}'>{name}</a>";
+					}
+				}
 			}
 
-			return String.Empty;
+			var buildNumber = Environment.GetEnvironmentVariable("bamboo_buildNumber");
+			if (!string.IsNullOrEmpty(buildNumber))
+			{
+				name = name.Length == 0 ? $"#{buildNumber}" : $"{name} (#{buildNumber})";
+			}
+
+			return name;
 		}
 
 
@@ -96,6 +123,30 @@ namespace TrxReporter
 			return qualifiedName;
 		}
 
+
+		/// <summary>
+		/// Custom name from test name and storage directory, extracting
+		/// the Bamboo build part of the directory path.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="storage"></param>
+		/// <returns></returns>
+		public string GetReportSubtitle(string name, string storage)
+		{
+			var parts = storage.Split(System.IO.Path.DirectorySeparatorChar);
+			if (parts.Length > 1)
+			{
+				var build = parts[2].Trim();
+				if (build != String.Empty)
+				{
+					return build + " - " + name.Substring(name.IndexOf('@') + 1);
+				}
+			}
+
+			return name;
+		}
+
+
 		public string GetShortDateTime(string time)
 		{
 			if (string.IsNullOrEmpty(time))
@@ -110,25 +161,6 @@ namespace TrxReporter
 		public string GetYear()
 		{
 			return DateTime.Now.Year.ToString();
-		}
-
-
-		/// <summary>
-		/// Custom name from test name and storage directory, extracting
-		/// the Bamboo build part of the directory path.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="storage"></param>
-		/// <returns></returns>
-		public string MakeCustomName (string name, string storage)
-		{
-			var build = GetBuildName(storage);
-			if (build != String.Empty)
-			{
-				return build + " - " + name.Substring(name.IndexOf('@') + 1);
-			}
-
-			return name;
 		}
 
 
