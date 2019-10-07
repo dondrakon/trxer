@@ -200,6 +200,7 @@
             </thead>
             <tbody>
               <xsl:for-each select="$features">
+                <xsl:sort select="@className" order="ascending"/>
                 <xsl:variable name="featureClass" select="@className" />
                 <xsl:variable name="scenarios" select="key('TestMethods', @className)" />
                 <xsl:variable name="scenarioCount" select="count($scenarios)" />
