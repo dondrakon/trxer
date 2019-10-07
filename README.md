@@ -18,6 +18,14 @@
   <li>Branch name is hyperlinked to results URL page</li>
 </ul>
 
+<p>Example Bamboo environment variables, as PowerShell settings:</p>
+
+<ul>
+  <li>$env:bamboo_resultsUrl = 'https://code.company.com/bamboo/browse/APP-CAA-BCE-825';</li>
+  <li>$env:bamboo_planRepository_branchName = 'develop';</li>
+  <li>$env:bamboo_buildNumber = '825';</li>
+</ul>
+
 <h2>Usage</h2>
 
 PS> <b>dotnet .\TrxReporter.dll --input &lt;path-to-trx&gt; [--output &lt;output-path&gt;] [--title &lt;title&gt;]</b>
