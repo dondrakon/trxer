@@ -206,6 +206,7 @@
 
                 <xsl:variable name="methods" select="//t:TestMethod[@className=$featureClass]/@name" />
                 <xsl:variable name="passed" select="count(/t:TestRun/t:Results/t:UnitTestResult[@testName=$methods and @outcome='Passed'])" />
+                <xsl:variable name="skipped" select="count(/t:TestRun/t:Results/t:UnitTestResult[@testName=$methods and @outcome='NotExecuted'])" />
 
                 <!-- Scenario header -->
 
@@ -217,8 +218,9 @@
                   <td class="scenario" style="text-align:left">
                     <xsl:value-of select="pens:GetFeatureName(@className)" />
                     <xsl:call-template name="BuildCounts">
-                      <xsl:with-param name="passed" select="$passed" />
                       <xsl:with-param name="total" select="$scenarioCount" />
+                      <xsl:with-param name="passed" select="$passed" />
+                      <xsl:with-param name="skipped" select="$skipped" />
                     </xsl:call-template>
                   </td>
                 </tr>
@@ -369,17 +371,35 @@
   </xsl:template>
 
   <xsl:template name="BuildCounts">
-    <xsl:param name="passed" />
     <xsl:param name="total" />
+    <xsl:param name="passed" />
+    <xsl:param name="skipped" />
     <xsl:choose>
+      <!--xsl:when test="$passed=$total">
+        <div class="counts passed">
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed
+        </div>
+      </xsl:when-->
       <xsl:when test="$passed=$total">
         <div class="counts passed">
           <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed
         </div>
       </xsl:when>
+      <xsl:when test="$passed+$skipped=$total">
+        <div class="counts passed">
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed, <xsl:value-of select="$skipped" /> skipped
+        </div>
+      </xsl:when>
+      <xsl:when test="$skipped>0">
+        <div class="counts failed">
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed, <xsl:value-of select="$skipped" /> skipped
+        </div>
+      </xsl:when>
       <xsl:otherwise>
         <div class="counts failed">
-          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed
+          <xsl:value-of select="$passed" /> of <xsl:value-of select="$total"/> passed<xsl:if test="$skipped>0">
+            , <xsl:value-of select="$skipped" /> skipped
+          </xsl:if>
         </div>
       </xsl:otherwise>
     </xsl:choose>
