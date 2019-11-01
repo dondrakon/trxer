@@ -6,8 +6,9 @@
 namespace TrxReporter
 {
 	using System;
+	using System.IO;
 	using System.Text;
-	using System.Text.RegularExpressions;
+
 
 	public class Pens
 	{
@@ -32,6 +33,15 @@ namespace TrxReporter
 					else
 						builder.Append($"<span class=\"traceMessage\">{esc}</span><br/>\n");
 				}
+				else if (line.StartsWith("Screenshot: file://"))
+				{
+					var uri = new Uri(line.Substring(12));
+					var src = Convert.ToBase64String(File.ReadAllBytes(uri.LocalPath));
+
+					builder.Append("<br/><img onclick=\"OpenInPictureBox(this)\" width=\"300\" height=\"200\" src=\"data:image/png;base64, ");
+					builder.Append(src);
+					builder.Append("\"/><br/>");
+				}
 				else
 				{
 					var esc = line.Replace("<", "&lt;").Replace(">", "&gt;");
@@ -50,7 +60,7 @@ namespace TrxReporter
 		/// Get the current Bamboo branch name.
 		/// </summary>
 		/// <returns></returns>
-		public string GetBranchName ()
+		public string GetBranchName()
 		{
 			return Environment.GetEnvironmentVariable("bamboo_planRepository_branchName") ?? String.Empty;
 		}

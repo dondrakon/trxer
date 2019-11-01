@@ -6,7 +6,8 @@
 <ul>
   <li>Target .NET Core 2.2.</li>
   <li>Simpler layout</li>
-  <li>Handles output from SpecFlow showing gherkin and captured images</li>
+  <li>Handles output from SpecFlow showing gherkin</li>
+  <li>Handled both images embedded by SpecFlow and embedding external images</li>
   <li>Click images to show them zoomed in modal dialog</li>
   <li>Custom title shows Bamboo build directory</li>
 </ul>
@@ -29,6 +30,10 @@
 <h2>Usage</h2>
 
 PS> <b>dotnet .\TrxReporter.dll --input &lt;path-to-trx&gt; [--output &lt;output-path&gt;] [--title &lt;title&gt;]</b>
+
+On Linux, use parameter:value delimeter for example
+
+PS> <b>dotnet .\TrxReporter.dll --input:&lt;path-to-trx&gt; [--output:&lt;output-path&gt;] [--title:&lt;title&gt;]</b>
 
 <ul>
 --input path can be absolute or relative
