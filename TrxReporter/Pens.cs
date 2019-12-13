@@ -35,12 +35,23 @@ namespace TrxReporter
 				}
 				else if (line.StartsWith("Screenshot: file://"))
 				{
-					var uri = new Uri(line.Substring(12));
-					var src = Convert.ToBase64String(File.ReadAllBytes(uri.LocalPath));
+					var path = line.Substring(12);
 
-					builder.Append("<br/><img onclick=\"OpenInPictureBox(this)\" width=\"300\" height=\"200\" src=\"data:image/png;base64, ");
-					builder.Append(src);
-					builder.Append("\"/><br/>");
+					try
+					{
+						var uri = new Uri(path);
+						var src = Convert.ToBase64String(File.ReadAllBytes(uri.LocalPath));
+
+						builder.Append("<br/><img onclick=\"OpenInPictureBox(this)\" width=\"300\" height=\"200\" src=\"data:image/png;base64, ");
+						builder.Append(src);
+						builder.Append("\"/><br/>");
+					}
+					catch
+					{
+						builder.Append("<br/><img width=\"300\" height=\"200\" style=\"border:1px dotted red;\" src=\"invalid\" title=\"Image not found: ");
+						builder.Append(path);
+						builder.Append("\"/><br/>");
+					}
 				}
 				else
 				{
