@@ -4,7 +4,7 @@
 <p>This is a customized fork of Trxer by NivNavick.</p>
 
 <ul>
-  <li>Target .NET Core 2.2.</li>
+  <li>Target .NET Core 3.1</li>
   <li>Simpler layout</li>
   <li>Handles output from SpecFlow showing gherkin</li>
   <li>Handled both images embedded by SpecFlow and embedding external images</li>
